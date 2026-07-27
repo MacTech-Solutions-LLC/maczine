@@ -9,6 +9,20 @@ tags:
   - cui
   - nist-800-171
   - post-quantum
+issue: 1
+kicker: Field Report · Secure Communications
+stats:
+  - n: "$0"
+    label: per seat, per month, forever — MIT licensed
+  - n: "<60s"
+    label: two laptops, one LAN, zero config, zero internet
+  - n: "2 GB"
+    label: resumable, hash-verified file transfers
+asides:
+  - title: Why "Freehold"
+    body: A **freehold** is property held outright — no landlord, no rent, no one who can let themselves in. That is the architecture, in one word.
+  - title: The lineage
+    body: Freehold is built on the **chat-tunnel** protocol — the wire keeps the old name so existing installs upgrade in place. Nothing re-keys, nothing moves.
 ---
 
 Every small defense contractor we work with has the same conversation
