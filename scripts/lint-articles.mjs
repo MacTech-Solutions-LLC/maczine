@@ -35,6 +35,11 @@ const dirs = readdirSync(ARTICLES).filter((d) =>
   statSync(join(ARTICLES, d)).isDirectory(),
 )
 
+// Catalog rule: issue numbers form ONE series (001 = the Freehold
+// pilot), assigned in frontmatter, never reused. Articles without an
+// issue are "Field Notes" and stay unnumbered everywhere.
+const issueOwners = new Map()
+
 for (const slug of dirs) {
   if (!SLUG_RE.test(slug)) {
     err(slug, 'directory name must be kebab-case (lowercase letters, digits, hyphens)')
@@ -67,6 +72,12 @@ for (const slug of dirs) {
   }
   if (data.issue !== undefined && (!Number.isInteger(data.issue) || data.issue < 1)) {
     err(slug, `issue must be a positive integer, got "${data.issue}"`)
+  } else if (data.issue !== undefined) {
+    if (issueOwners.has(data.issue)) {
+      err(slug, `issue ${data.issue} is already taken by "${issueOwners.get(data.issue)}" — issue numbers are unique, pick the next free one`)
+    } else {
+      issueOwners.set(data.issue, slug)
+    }
   }
   if (data.kicker !== undefined && typeof data.kicker !== 'string') {
     err(slug, 'kicker must be a string')
