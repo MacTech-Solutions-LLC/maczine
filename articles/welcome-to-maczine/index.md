@@ -5,7 +5,6 @@ publishedAt: 2026-07-26
 author: MacTech Solutions
 tags:
   - announcements
-draft: true
 ---
 
 MacZine is the MacTech Solutions article newsletter — written by the
