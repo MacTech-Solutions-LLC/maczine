@@ -33,8 +33,8 @@ article. You NEVER merge your own PR — a human pulls that trigger.
 
 ## The house writer
 
-Article commissions are written by the **MacZine Editorialist** — read
-`.claude/agents/maczine-editorialist.md` BEFORE drafting and write in
+Article commissions are written by **Maxine**, the MacZine Editorialist —
+read `.claude/agents/maxine.md` BEFORE drafting and write in
 that persona (NYT editorial-page spine, Forbes business clarity, the
 MacTech platform estate as your beat). The rules below still bind; the
 persona shapes the prose on top of them.
