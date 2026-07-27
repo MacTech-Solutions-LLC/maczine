@@ -17,7 +17,6 @@ stats:
 asides:
   - title: Read the companion piece
     body: For what the CMMC Phase 2 pause itself does and doesn't change, see "[CMMC Phase 2 Is Paused. Your Compliance Clock Isn't.](/maczine/cmmc-phase-2-suspension-review)" This piece is about the other tracks moving beside it.
-draft: true
 ---
 
 A single paused program has absorbed the entire industry's attention this
