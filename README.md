@@ -64,6 +64,18 @@ Body is GitHub-flavored Markdown. Relative image links
 - Use `##` for section headings (the h1 is taken by the title)
 - Internal links to the site (`/cmmc-level-2`, `/readiness`) pass link equity — use them
 
+## The catalog: Issue Nº vs Field Notes
+
+Two series, no overlap — this is what keeps the index unambiguous:
+
+- **Issue Nº** — articles with `issue:` in frontmatter. One shared series,
+  starting at the Freehold pilot (`issue: 1` → "Issue Nº 001"). Numbers are
+  unique forever (lint fails a duplicate) and assigned at publish time:
+  take the next free number.
+- **Field Notes** — articles *without* `issue:`. They render with the
+  ◆ mark and a "Field Notes" label, never a numeral. Use this for
+  announcements, shorter pieces, or anything that isn't a full issue.
+
 ## Field copies (the press-room PDF)
 
 Every article merged to `main` automatically gets a **field copy** — the
