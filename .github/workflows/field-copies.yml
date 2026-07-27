@@ -1,0 +1,40 @@
+name: Render field copies
+
+# Every article merged to main gets its press-room "field copy" PDF
+# generated and committed next to it (articles/<slug>/field-copy.pdf).
+# The bot commit touches only *.pdf, which is outside the paths filter,
+# so it can never retrigger this workflow.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'articles/**/index.md'
+      - 'scripts/build-article.mjs'
+      - 'scripts/render-pdf.mjs'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      - run: node scripts/build-article.mjs --all --pdf
+      - name: Commit field copies
+        run: |
+          git add articles/*/field-copy.pdf
+          if git diff --cached --quiet; then
+            echo "field copies unchanged"
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -m "chore: render field copies"
+            git push
+          fi

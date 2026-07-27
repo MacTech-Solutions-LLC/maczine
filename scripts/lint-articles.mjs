@@ -65,6 +65,24 @@ for (const slug of dirs) {
   if (data.tags && !Array.isArray(data.tags)) {
     err(slug, 'tags must be a YAML list')
   }
+  if (data.issue !== undefined && (!Number.isInteger(data.issue) || data.issue < 1)) {
+    err(slug, `issue must be a positive integer, got "${data.issue}"`)
+  }
+  if (data.kicker !== undefined && typeof data.kicker !== 'string') {
+    err(slug, 'kicker must be a string')
+  }
+  if (data.stats !== undefined) {
+    if (!Array.isArray(data.stats) || data.stats.some((s) => !s || !s.n || !s.label)) {
+      err(slug, 'stats must be a list of { n, label } entries')
+    } else if (data.stats.length > 4) {
+      warn(slug, `${data.stats.length} stats — the margin rail fits 3–4 comfortably`)
+    }
+  }
+  if (data.asides !== undefined) {
+    if (!Array.isArray(data.asides) || data.asides.some((a) => !a || !a.title || !a.body)) {
+      err(slug, 'asides must be a list of { title, body } entries')
+    }
+  }
 
   if (data.title && String(data.title).length > 70) {
     warn(slug, `title is ${String(data.title).length} chars — Google truncates around 60–70`)
