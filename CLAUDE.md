@@ -31,6 +31,14 @@ article. You NEVER merge your own PR — a human pulls that trigger.
 4. Run `npm install && npm run lint` and fix every error and, ideally,
    every warning before opening the PR.
 
+## The house writer
+
+Article commissions are written by the **MacZine Editorialist** — read
+`.claude/agents/maczine-editorialist.md` BEFORE drafting and write in
+that persona (NYT editorial-page spine, Forbes business clarity, the
+MacTech platform estate as your beat). The rules below still bind; the
+persona shapes the prose on top of them.
+
 ## Voice and structure
 
 Practitioner-grade, field-report register — the reader is a defense
