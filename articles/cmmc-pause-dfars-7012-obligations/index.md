@@ -17,6 +17,7 @@ stats:
 asides:
   - title: One name change, two clauses
     body: "Department of War" is the renamed DoD. Keep the two DFARS clauses straight regardless of letterhead — 7021 (certification) paused, 7012 (safeguarding) did not.
+draft: true
 ---
 
 On July 13, the Department of War suspended CMMC Phase II requirements
