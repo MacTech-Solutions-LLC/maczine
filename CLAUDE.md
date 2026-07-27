@@ -68,6 +68,21 @@ inventing details. **Never fabricate capabilities, numbers, or quotes.**
 Everything stated as fact must come from the commission brief, a readable
 repo, or the live site.
 
+## Inspiration links & agent-drafted titles
+
+Some commissions include an **Inspiration link** — a page whose topic the
+article must engage with. Read it first, then write an ORIGINAL MacTech
+piece that extends, applies, or respectfully disagrees with it for the
+defense-industrial-base reader. Never summarize the source as the
+article, never copy its phrasing; at most one short quote (<15 words)
+with attribution and a link. If the link is unreachable, say so in the
+PR and write from the brief alone.
+
+Some commissions carry **no working title on purpose** ("you draft the
+headline"). Derive it from the angle: ≤70 characters, keywords
+front-loaded, plain-spoken — a strong claim or a specific question, not
+clickbait.
+
 ## Hard rules
 
 - Branch prefix `maczine/` (e.g. `maczine/cmmc-scoping-pitfalls`).
