@@ -11,6 +11,7 @@ kicker: Field Notes · How We Publish
 asides:
   - title: Two series, one linter
     body: '"Issue Nº" articles carry an `issue:` number; Field Notes do not. A script checks every pull request and fails the build on a duplicate number, a missing field, or an oversize title — the catalog rule is enforced by code, not remembered by an editor.'
+draft: true
 ---
 
 This article is a Markdown file in a public GitHub repository, and the
