@@ -16,7 +16,7 @@ stats:
     label: hours to report a cyber incident under DFARS 7012 — untouched by the pause
 asides:
   - title: One name change, two clauses
-    body: "Department of War" is the renamed DoD. Keep the two DFARS clauses straight regardless of letterhead — 7021 (certification) paused, 7012 (safeguarding) did not.
+    body: '"Department of War" is the renamed DoD. Keep the two DFARS clauses straight regardless of letterhead — 7021 (certification) paused, 7012 (safeguarding) did not.'
 draft: true
 ---
 

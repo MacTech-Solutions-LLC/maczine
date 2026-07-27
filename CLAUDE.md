@@ -91,6 +91,23 @@ headline"). Derive it from the angle: ≤70 characters, keywords
 front-loaded, plain-spoken — a strong claim or a specific question, not
 clickbait.
 
+## YAML frontmatter trap (this has bitten twice — read it)
+
+Any frontmatter value that BEGINS with a `"` character must be wrapped in
+single quotes, or YAML treats the opening quote as the scalar delimiter
+and the rest of the line breaks the parse — the article then fails lint
+AND silently drops out of the site sync:
+
+```yaml
+# WRONG — parse error or swallowed text
+body: "Department of War" is the renamed DoD.
+# RIGHT
+body: '"Department of War" is the renamed DoD.'
+```
+
+Run `npm run lint` (or hand-check against `scripts/lint-articles.mjs`)
+before every PR; a red lint means the article will not publish.
+
 ## Hard rules
 
 - Branch prefix `maczine/` (e.g. `maczine/cmmc-scoping-pitfalls`).
