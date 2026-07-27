@@ -43,6 +43,14 @@ tags:                                                 # optional, lowercase
   - nist-800-171
 coverImage: ./cover.png                               # optional, relative or absolute
 draft: false                                          # optional; true = not synced
+issue: 3                                              # optional; "Issue Nº 003" masthead
+kicker: Field Report · Secure Communications          # optional; defaults to first tag
+stats:                                                # optional; margin-rail big stats
+  - n: "$0"
+    label: per seat, per month, forever
+asides:                                               # optional; margin-rail asides
+  - title: Why "Freehold"
+    body: A **freehold** is property held outright.
 ---
 ```
 
@@ -55,6 +63,25 @@ Body is GitHub-flavored Markdown. Relative image links
 - `description` is the SERP meta description — write it for click-through
 - Use `##` for section headings (the h1 is taken by the title)
 - Internal links to the site (`/cmmc-level-2`, `/readiness`) pass link equity — use them
+
+## Field copies (the press-room PDF)
+
+Every article merged to `main` automatically gets a **field copy** — the
+MacZine press-room layout (warm paper, ink navy, one burnt-orange accent,
+serif column + margin rail) — rendered by CI and committed as
+`articles/<slug>/field-copy.pdf`. The same design language renders the
+article on the website.
+
+- `scripts/build-article.mjs` fills the layout from markdown + frontmatter
+  (issue stamp, kicker, rail stats/asides come from the fields above)
+- `template/maczine-article.html` is the definitive hand-balanced edition —
+  for a showcase issue, craft the sheets by hand there and render with
+  `scripts/render-pdf.mjs`
+
+```
+node scripts/build-article.mjs articles/<slug> --pdf   # one article
+node scripts/build-article.mjs --all --pdf             # everything
+```
 
 ## Linting locally
 

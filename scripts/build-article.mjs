@@ -1,0 +1,281 @@
+#!/usr/bin/env node
+// Build a MacZine "field copy" — the press-room article layout — from an
+// article's markdown, no hand-layout required.
+//
+//   node scripts/build-article.mjs articles/<slug>            # HTML
+//   node scripts/build-article.mjs articles/<slug> --pdf      # HTML + PDF
+//   node scripts/build-article.mjs --all --pdf                # every article
+//
+// Output lands next to the article: articles/<slug>/field-copy.html|pdf.
+//
+// Relationship to template/maczine-article.html: that file is the
+// definitive, hand-balanced two-sheet edition (fixed .sheet pages, rail
+// composed by eye). This builder carries the same design language —
+// paper/ink/one-accent tokens, serif column, grotesque marginalia, drop
+// cap, numbered sections, stamp, end-mark, colophon — but lets content
+// FLOW across pages, because generated copy can't be balanced by eye.
+// For a showcase issue, still craft it in the template by hand.
+//
+// Optional frontmatter it understands (all validated by lint):
+//   issue: 3                       → "Issue Nº 003" masthead + stamp
+//   kicker: Field Report · Comms   → kicker line (default: first tag)
+//   stats:                         → margin-rail bigstats
+//     - n: "$0"
+//       label: per seat, per month
+//   asides:                        → margin-rail asides (inline md ok)
+//     - title: Why "Freehold"
+//       body: A **freehold** is property held outright.
+
+import { readFileSync, writeFileSync, readdirSync, existsSync, statSync } from 'node:fs'
+import { spawnSync } from 'node:child_process'
+import { join, resolve } from 'node:path'
+import matter from 'gray-matter'
+import { marked } from 'marked'
+
+const ROOT = resolve(new URL('..', import.meta.url).pathname)
+const SITE = 'mactechsolutionsllc.com/maczine'
+
+const esc = (s) =>
+  String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+
+const pad3 = (n) => String(n).padStart(3, '0')
+
+const monthYear = (d) =>
+  new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' })
+    .format(new Date(d))
+    .toUpperCase()
+
+function buildHtml(dir) {
+  const raw = readFileSync(join(dir, 'index.md'), 'utf8')
+  const { data: fm, content } = matter(raw)
+
+  const words = content.trim().split(/\s+/).length
+  const minutes = Math.max(1, Math.round(words / 200))
+  const issueLabel = fm.issue ? `Issue Nº ${pad3(fm.issue)}` : 'Field Notes'
+  const kicker = fm.kicker || (Array.isArray(fm.tags) && fm.tags[0]
+    ? String(fm.tags[0]).replace(/-/g, ' ')
+    : 'From the field')
+
+  // --- markdown → press-room HTML -----------------------------------
+  let sectNo = 0
+  let paraNo = 0
+  const renderer = {
+    heading({ tokens, depth }) {
+      const text = this.parser.parseInline(tokens)
+      if (depth <= 2) {
+        sectNo += 1
+        return `<div class="sect"><span class="no">${pad3(sectNo).slice(1)}</span><h2>${text}</h2></div>\n`
+      }
+      return `<h3 class="subhed">${text}</h3>\n`
+    },
+    paragraph({ tokens }) {
+      paraNo += 1
+      const cls = paraNo === 1 ? ' class="opener"' : ''
+      return `<p${cls}>${this.parser.parseInline(tokens)}</p>\n`
+    },
+    blockquote({ tokens }) {
+      const inner = this.parser.parse(tokens).replace(/<\/?p[^>]*>/g, '')
+      return `<div class="pull"><p>${inner}</p></div>\n`
+    },
+    hr() {
+      return '<div class="hairline"></div>\n'
+    },
+    strong({ tokens }) {
+      return `<b>${this.parser.parseInline(tokens)}</b>`
+    },
+  }
+  marked.use({ renderer })
+  let body = marked.parse(content)
+  // end-mark on the final paragraph
+  const lastP = body.lastIndexOf('</p>')
+  if (lastP !== -1) {
+    body = body.slice(0, lastP) + '&nbsp;<span class="endmark">◆</span></p>' + body.slice(lastP + 4)
+  }
+
+  // --- margin rail ----------------------------------------------------
+  const stats = Array.isArray(fm.stats) && fm.stats.length
+    ? fm.stats
+    : [{ n: `${minutes} min`, label: 'reading time, no paywall, no pop-ups' }]
+  const asides = Array.isArray(fm.asides) && fm.asides.length
+    ? fm.asides
+    : [{
+        title: 'About MacZine',
+        body: 'Written, reviewed and versioned in the open — published from Git, reviewed like code.',
+      }]
+
+  const rail = [
+    `<div class="stamp">Field Copy<br>${esc(fm.issue ? `Issue Nº ${pad3(fm.issue)}` : monthYear(fm.publishedAt))}<br>${esc(
+      Array.isArray(fm.tags) && fm.tags[0] ? String(fm.tags[0]).replace(/-/g, ' ') : 'maczine',
+    )}</div>`,
+    ...stats.map(
+      (s) => `<div class="bigstat"><div class="n">${esc(s.n)}</div><div class="l">${esc(s.label)}</div></div>`,
+    ),
+    ...asides.map(
+      (a) =>
+        `<div class="aside"><div class="amark">◆ ${esc(a.title)}</div><p>${marked.parseInline(String(a.body))}</p></div>`,
+    ),
+  ].join('\n      ')
+
+  return `<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>MacZine — ${esc(fm.title)}</title>
+<!-- GENERATED by scripts/build-article.mjs — edit index.md, not this file. -->
+<style>
+  :root {
+    --ink:    #102a43;
+    --ink-2:  #486581;
+    --paper:  #faf7f1;
+    --accent: #c2410c;
+    --rail:   #6b5d4c;
+    --hair:   #d8cfc0;
+    --serif: "Iowan Old Style", "Palatino", "Book Antiqua", Georgia, serif;
+    --grot:  -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --mono:  "SF Mono", Menlo, Consolas, monospace;
+  }
+  @page { size: letter; margin: 0.55in 0.58in 0.66in; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { background: var(--paper); }
+  body { font-family: var(--serif); color: var(--ink); }
+
+  .masthead { display: flex; align-items: flex-end; justify-content: space-between; }
+  .wordmark { font-size: 44px; letter-spacing: -0.5px; line-height: 0.9; }
+  .wordmark .mac { font-weight: 700; }
+  .wordmark .zine { font-style: italic; font-weight: 400; color: var(--accent); }
+  .issueline { text-align: right; font-family: var(--grot); font-size: 8.5px;
+               letter-spacing: 2.2px; color: var(--ink-2); line-height: 1.7; text-transform: uppercase; }
+  .issueline b { color: var(--ink); }
+  .rules { border-top: 2.5px solid var(--ink); border-bottom: 1px solid var(--ink);
+           height: 5px; margin: 10px 0 0; }
+
+  .kicker { font-family: var(--grot); font-size: 9.5px; font-weight: 700; letter-spacing: 3px;
+            text-transform: uppercase; color: var(--accent); margin: 20px 0 9px; }
+  h1.hed { font-size: 38px; line-height: 1.05; font-weight: 700; letter-spacing: -0.6px; max-width: 6.6in; }
+  .dek { font-size: 14px; line-height: 1.5; font-style: italic; color: var(--ink-2);
+         max-width: 6.2in; margin: 12px 0 0; }
+  .byline { font-family: var(--grot); font-size: 9px; letter-spacing: 1.8px; text-transform: uppercase;
+            color: var(--ink-2); margin: 14px 0 16px; display: flex; gap: 18px; }
+  .byline b { color: var(--ink); }
+
+  /* margin rail floats right of the opening flow, page-break safe */
+  .railcol { float: right; width: 1.72in; margin: 4px 0 14px 0.3in; }
+  .stamp { transform: rotate(-5deg); border: 1.5px dashed var(--accent); color: var(--accent);
+           font-family: var(--grot); font-size: 8.5px; font-weight: 800; letter-spacing: 2.5px;
+           text-transform: uppercase; text-align: center; padding: 9px 6px; border-radius: 3px;
+           margin: 6px 4px 22px; line-height: 1.8; }
+  .aside { margin: 0 0 18px; padding-left: 10px; border-left: 2px solid var(--accent);
+           break-inside: avoid; }
+  .aside .amark { font-family: var(--grot); font-size: 8px; font-weight: 800; letter-spacing: 2px;
+                  color: var(--accent); text-transform: uppercase; margin-bottom: 3px; }
+  .aside p { font-family: var(--grot); font-size: 8.8px; line-height: 1.55; color: var(--rail); }
+  .aside p b { color: var(--ink); }
+  .bigstat { margin: 0 0 18px; break-inside: avoid; }
+  .bigstat .n { font-size: 32px; font-weight: 700; color: var(--ink); letter-spacing: -1px; }
+  .bigstat .l { font-family: var(--grot); font-size: 8.5px; letter-spacing: 1.6px;
+                text-transform: uppercase; color: var(--rail); line-height: 1.5; margin-top: 2px; }
+
+  .flow p { font-size: 10.8px; line-height: 1.62; margin: 0 0 9px; text-align: justify;
+            hyphens: auto; -webkit-hyphens: auto; }
+  .flow p b { color: var(--ink); }
+  .flow a { color: var(--accent); text-decoration: none; }
+  .flow .opener::first-letter { font-size: 46px; line-height: 0.82; float: left; padding: 4px 7px 0 0;
+                                font-weight: 700; color: var(--accent); }
+  .flow ul, .flow ol { margin: 0 0 9px 0.22in; }
+  .flow li { font-size: 10.8px; line-height: 1.55; margin-bottom: 4px; }
+  .flow img { max-width: 100%; }
+  .flow pre { font-family: var(--mono); font-size: 9px; line-height: 1.5; background: #f0e9dc;
+              padding: 8px 10px; border-radius: 2px; margin: 0 0 9px; white-space: pre-wrap;
+              break-inside: avoid; }
+  .flow code { font-family: var(--mono); font-size: 9px; background: #f0e9dc; padding: 1px 4px; border-radius: 2px; }
+  .flow pre code { background: none; padding: 0; }
+
+  .sect { display: flex; align-items: baseline; gap: 10px; margin: 13px 0 7px;
+          border-top: 1px solid var(--hair); padding-top: 9px; break-after: avoid; }
+  .sect .no { font-size: 26px; font-weight: 700; color: var(--accent); }
+  .sect h2 { font-family: var(--grot); font-size: 11px; font-weight: 800; letter-spacing: 2.4px;
+             text-transform: uppercase; color: var(--ink); }
+  .subhed { font-family: var(--grot); font-size: 10px; font-weight: 800; letter-spacing: 1.6px;
+            text-transform: uppercase; margin: 10px 0 5px; break-after: avoid; }
+
+  .pull { border-top: 2.5px solid var(--ink); border-bottom: 1px solid var(--ink);
+          margin: 10px 0; padding: 9px 2px; break-inside: avoid; }
+  .pull p { font-size: 16px; line-height: 1.35; font-style: italic; text-align: left;
+            color: var(--ink); margin: 0; }
+  .hairline { border-top: 1px solid var(--hair); margin: 12px 0; }
+  .endmark { color: var(--accent); font-size: 11px; }
+
+  .colophon { border-top: 2.5px solid var(--ink); margin-top: 18px; padding-top: 10px;
+              font-family: var(--grot); font-size: 8.6px; line-height: 1.7; color: var(--ink-2);
+              display: flex; gap: 24px; clear: both; break-inside: avoid; }
+  .colophon b { color: var(--ink); letter-spacing: 1px; }
+</style>
+</head>
+<body>
+  <div class="masthead">
+    <div class="wordmark"><span class="mac">Mac</span><span class="zine">Zine</span></div>
+    <div class="issueline">
+      The MacTech Solutions Newsletter<br>
+      <b>${esc(issueLabel)}</b> · ${esc(monthYear(fm.publishedAt))} · ${SITE}
+    </div>
+  </div>
+  <div class="rules"></div>
+
+  <div class="kicker">${esc(kicker)}</div>
+  <h1 class="hed">${esc(fm.title)}</h1>
+  <p class="dek">${esc(fm.description)}</p>
+  <div class="byline"><span>By <b>${esc(fm.author || 'MacTech Solutions')}</b></span><span>Reading time · ${minutes} min</span><span>${esc(
+    Array.isArray(fm.tags) ? fm.tags.join(' · ') : '',
+  )}</span></div>
+
+  <div class="flow">
+    <div class="railcol">
+      ${rail}
+    </div>
+${body}
+    <div class="colophon">
+      <span><b>MORE ISSUES</b><br>${SITE}<br>new field copies with every merge</span>
+      <span><b>WORK WITH US</b><br>CMMC readiness · CUI enclaves · RMF<br>mactechsolutionsllc.com/contact</span>
+      <span><b>MACZINE</b><br>Written, reviewed and versioned in the open.<br>Published from Git, reviewed like code.</span>
+    </div>
+  </div>
+</body>
+</html>
+`
+}
+
+// --- CLI ---------------------------------------------------------------
+const args = process.argv.slice(2)
+const wantPdf = args.includes('--pdf')
+const dirs = args.includes('--all')
+  ? readdirSync(join(ROOT, 'articles'))
+      .map((d) => join(ROOT, 'articles', d))
+      .filter((d) => statSync(d).isDirectory() && existsSync(join(d, 'index.md')))
+  : args.filter((a) => !a.startsWith('--')).map((a) => resolve(a))
+
+if (dirs.length === 0) {
+  console.error('usage: node scripts/build-article.mjs <articles/slug>|--all [--pdf]')
+  process.exit(1)
+}
+
+let failed = 0
+for (const dir of dirs) {
+  try {
+    const html = buildHtml(dir)
+    const htmlPath = join(dir, 'field-copy.html')
+    writeFileSync(htmlPath, html)
+    console.log(`built ${htmlPath.replace(ROOT + '/', '')}`)
+    if (wantPdf) {
+      const r = spawnSync(
+        process.execPath,
+        [join(ROOT, 'scripts/render-pdf.mjs'), htmlPath, join(dir, 'field-copy.pdf')],
+        { stdio: 'inherit' },
+      )
+      if (r.status !== 0) failed++
+    }
+  } catch (e) {
+    console.error(`FAILED ${dir}: ${e.message}`)
+    failed++
+  }
+}
+process.exit(failed > 0 ? 1 : 0)
