@@ -1,0 +1,349 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>MacZine — Freehold: Secure Comms You Hold Outright</title>
+<!-- ==================================================================
+  MacZine PDF ARTICLE TEMPLATE  ·  definitive edition, v1
+  ==================================================================
+  This file is both the template and its first pilot (the Freehold
+  article). To produce a new article PDF:
+
+    1. Copy this file to template/renders/<slug>.html
+    2. Replace every block marked with a  ✂ SLOT  comment
+    3. Balance content across .sheet blocks by eye (each .sheet is one
+       US-Letter page; overflow is clipped, never reflowed)
+    4. node scripts/render-pdf.mjs template/renders/<slug>.html
+
+  Design language ("press room, not command center"):
+    · warm paper, ink navy (MacTech brand #102a43), one burnt-orange
+      editorial accent — never more than one accent per spread
+    · serif for reading (Iowan/Palatino/Georgia), grotesque ONLY for
+      kickers, labels and marginalia
+    · asymmetric grid: 4.9in reading column + 1.7in margin rail for
+      asides — put the fun in the rail, keep the column calm
+    · devices: drop cap, oversized section numerals, one pull quote per
+      spread max, rotated issue stamp, end-mark ◆, colophon strip
+  ================================================================== -->
+<style>
+  /* ---------- masthead constants: edit once per issue ---------- */
+  :root {
+    --issue-no: "Nº 001";
+    --issue-date: "JULY 2026";
+    --ink:    #102a43;   /* MacTech navy — text, rules            */
+    --ink-2:  #486581;   /* softened ink — captions, folios       */
+    --paper:  #faf7f1;   /* warm paper — the un-default move      */
+    --accent: #c2410c;   /* burnt orange — ONE accent, used sparingly */
+    --rail:   #6b5d4c;   /* marginalia brown-grey                 */
+    --hair:   #d8cfc0;   /* hairlines on paper                    */
+    --serif: "Iowan Old Style", "Palatino", "Book Antiqua", Georgia, serif;
+    --grot:  -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --mono:  "SF Mono", Menlo, Consolas, monospace;
+  }
+
+  @page { size: letter; margin: 0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { background: var(--paper); }
+  body { font-family: var(--serif); color: var(--ink); }
+
+  .sheet { width: 8.5in; height: 11in; padding: 0.52in 0.58in 0.62in; position: relative;
+           page-break-after: always; overflow: hidden; background: var(--paper); }
+  .sheet:last-child { page-break-after: auto; }
+
+  /* ---------- masthead ---------- */
+  .masthead { display: flex; align-items: flex-end; justify-content: space-between; }
+  .wordmark { font-size: 44px; letter-spacing: -0.5px; line-height: 0.9; }
+  .wordmark .mac { font-weight: 700; }
+  .wordmark .zine { font-style: italic; font-weight: 400; color: var(--accent); }
+  .issueline { text-align: right; font-family: var(--grot); font-size: 8.5px;
+               letter-spacing: 2.2px; color: var(--ink-2); line-height: 1.7; text-transform: uppercase; }
+  .issueline b { color: var(--ink); }
+  .rules { border-top: 2.5px solid var(--ink); border-bottom: 1px solid var(--ink);
+           height: 5px; margin: 10px 0 0; }
+
+  /* continuation masthead for inner pages */
+  .masthead.small .wordmark { font-size: 20px; }
+  .masthead.small + .rules { margin-top: 6px; }
+
+  /* ---------- title block ---------- */
+  .kicker { font-family: var(--grot); font-size: 9.5px; font-weight: 700; letter-spacing: 3px;
+            text-transform: uppercase; color: var(--accent); margin: 20px 0 9px; }
+  h1.hed { font-size: 40px; line-height: 1.04; font-weight: 700; letter-spacing: -0.6px; max-width: 6.6in; }
+  .dek { font-size: 14.5px; line-height: 1.5; font-style: italic; color: var(--ink-2);
+         max-width: 6.2in; margin: 12px 0 0; }
+  .byline { font-family: var(--grot); font-size: 9px; letter-spacing: 1.8px; text-transform: uppercase;
+            color: var(--ink-2); margin: 14px 0 0; display: flex; gap: 18px; }
+  .byline b { color: var(--ink); }
+
+  /* ---------- the grid: reading column + margin rail ---------- */
+  .grid { display: flex; gap: 0.32in; margin-top: 14px; }
+  .colmain { width: 4.92in; }
+  .railcol { flex: 1; padding-top: 4px; }
+
+  /* body text */
+  .colmain p { font-size: 10.8px; line-height: 1.62; margin: 0 0 9px; text-align: justify;
+               hyphens: auto; -webkit-hyphens: auto; }
+  .colmain p b { color: var(--ink); }
+  .colmain a { color: var(--accent); text-decoration: none; }
+  .opener::first-letter { font-size: 46px; line-height: 0.82; float: left; padding: 4px 7px 0 0;
+                          font-weight: 700; color: var(--accent); }
+
+  /* section heads: oversized numeral + small-cap title */
+  .sect { display: flex; align-items: baseline; gap: 10px; margin: 13px 0 7px;
+          border-top: 1px solid var(--hair); padding-top: 9px; }
+  .sect .no { font-size: 26px; font-weight: 700; color: var(--accent); font-variant-numeric: lining-nums; }
+  .sect h2 { font-family: var(--grot); font-size: 11px; font-weight: 800; letter-spacing: 2.4px;
+             text-transform: uppercase; color: var(--ink); }
+
+  /* pull quote */
+  .pull { border-top: 2.5px solid var(--ink); border-bottom: 1px solid var(--ink);
+          margin: 10px 0; padding: 9px 2px; }
+  .pull p { font-size: 17px; line-height: 1.35; font-style: italic; text-align: left;
+            color: var(--ink); margin: 0; }
+  .pull .who { font-family: var(--grot); font-size: 8.5px; letter-spacing: 2px;
+               text-transform: uppercase; color: var(--accent); margin-top: 7px; }
+
+  /* ---------- margin rail ---------- */
+  .stamp { transform: rotate(-5deg); border: 1.5px dashed var(--accent); color: var(--accent);
+           font-family: var(--grot); font-size: 8.5px; font-weight: 800; letter-spacing: 2.5px;
+           text-transform: uppercase; text-align: center; padding: 9px 6px; border-radius: 3px;
+           margin: 6px 4px 22px; line-height: 1.8; }
+  .aside { margin: 0 0 18px; padding-left: 10px; border-left: 2px solid var(--accent); }
+  .aside .amark { font-family: var(--grot); font-size: 8px; font-weight: 800; letter-spacing: 2px;
+                  color: var(--accent); text-transform: uppercase; margin-bottom: 3px; }
+  .aside p { font-family: var(--grot); font-size: 8.8px; line-height: 1.55; color: var(--rail); }
+  .aside p b { color: var(--ink); }
+  .bigstat { margin: 0 0 18px; }
+  .bigstat .n { font-size: 34px; font-weight: 700; color: var(--ink); letter-spacing: -1px; }
+  .bigstat .l { font-family: var(--grot); font-size: 8.5px; letter-spacing: 1.6px;
+                text-transform: uppercase; color: var(--rail); line-height: 1.5; margin-top: 2px; }
+
+  /* ---------- panels (facts / steps / honesty) ---------- */
+  .panel { border: 1px solid var(--ink); padding: 13px 15px; margin: 14px 0; background: #fffdf8; }
+  .panel .ptitle { font-family: var(--grot); font-size: 9.5px; font-weight: 800; letter-spacing: 2.5px;
+                   text-transform: uppercase; color: var(--ink); border-bottom: 1px solid var(--hair);
+                   padding-bottom: 6px; margin-bottom: 8px; }
+  .panel .ptitle .tick { color: var(--accent); }
+  .panel p, .panel li { font-size: 9.8px; line-height: 1.55; }
+  .panel ul { list-style: none; }
+  .panel li { padding: 3px 0 3px 12px; position: relative; }
+  .panel li:before { content: "◆"; position: absolute; left: 0; font-size: 6.5px; top: 6.5px; color: var(--accent); }
+  .panel.honest { border-color: var(--accent); }
+  .panel.honest .ptitle { color: var(--accent); border-color: var(--accent); }
+  code { font-family: var(--mono); font-size: 9px; background: #f0e9dc; padding: 1px 4px; border-radius: 2px; }
+
+  /* steps row */
+  .steps { display: flex; gap: 12px; margin: 12px 0; }
+  .stp { flex: 1; border-top: 2.5px solid var(--ink); padding-top: 8px; }
+  .stp .sn { font-size: 22px; font-weight: 700; color: var(--accent); }
+  .stp h4 { font-family: var(--grot); font-size: 9.5px; font-weight: 800; letter-spacing: 1.4px;
+            text-transform: uppercase; margin: 3px 0 4px; }
+  .stp p { font-size: 9.3px; line-height: 1.5; color: var(--ink-2); text-align: left; }
+
+  .endmark { color: var(--accent); font-size: 11px; }
+
+  /* ---------- folio + colophon ---------- */
+  .folio { position: absolute; bottom: 0.4in; left: 0.58in; right: 0.58in;
+           border-top: 1px solid var(--ink); padding-top: 7px; display: flex;
+           justify-content: space-between; font-family: var(--grot); font-size: 8px;
+           letter-spacing: 1.6px; text-transform: uppercase; color: var(--ink-2); }
+  .folio b { color: var(--ink); }
+  .folio .pg { color: var(--accent); font-weight: 800; }
+  .colophon { border-top: 2.5px solid var(--ink); margin-top: 16px; padding-top: 10px;
+              font-family: var(--grot); font-size: 8.6px; line-height: 1.7; color: var(--ink-2);
+              display: flex; gap: 24px; }
+  .colophon b { color: var(--ink); letter-spacing: 1px; }
+</style>
+</head>
+<body>
+
+<!-- ================================================================
+     SHEET 1 — masthead · headline · opening · rail
+     ================================================================ -->
+<div class="sheet">
+  <div class="masthead">
+    <div class="wordmark"><span class="mac">Mac</span><span class="zine">Zine</span></div>
+    <div class="issueline">
+      The MacTech Solutions Newsletter<br>
+      <b>Issue Nº 001</b> · July 2026 · mactechsolutionsllc.com/maczine
+    </div>
+  </div>
+  <div class="rules"></div>
+
+  <!-- ✂ SLOT: kicker · headline · dek · byline -->
+  <div class="kicker">Field Report · Secure Communications</div>
+  <h1 class="hed">Freehold: secure comms you hold outright.</h1>
+  <p class="dek">No server, no accounts, no per-seat rent, no third party holding your
+     metadata — and it keeps working where the internet doesn't reach. A field report
+     on the tool, and on the discipline that makes it credible.</p>
+  <div class="byline"><span>By <b>MacTech Solutions</b></span><span>Reading time · 7 min</span><span>freehold · v1.0 · MIT</span></div>
+
+  <div class="grid">
+    <div class="colmain">
+      <!-- ✂ SLOT: opening graf (gets the drop cap) -->
+      <p class="opener">Every small defense contractor we work with has the same conversation
+      problem. The program traffic that actually runs the shop — "the crucible pour moved to
+      Friday," "QA hold on lot 47," a 300&nbsp;MB fixture model — lives somewhere between text
+      messages that violate the records rules and a cloud messenger subscription that costs
+      real money, holds your metadata, and stops working the moment the network does.</p>
+      <p>For a ten-person sub, the cloud option runs roughly $1,800 a year with retention locked
+      in a premium tier — and cross-org collaboration means admin-gated federation,
+      negotiated pair by pair.</p>
+      <p><b>Freehold is the third option: comms your team owns</b> — like the shop floor, like
+      the machines on it. Peer-to-peer encrypted chat, calls and file transfer; your identity
+      is a cryptographic key generated on your machine; peers connect directly, NAT
+      holepunching included.</p>
+
+      <div class="sect"><span class="no">01</span><h2>Sovereign by architecture</h2></div>
+      <p>There is nothing to breach, subpoena, or bill you, because there is no vendor
+      infrastructure at all. Every link runs the Noise protocol with an independent
+      <b>hybrid post-quantum layer</b> (ML-KEM-768, FIPS 203) inside it — a fresh key for
+      every message, periodic re-keying, downgrade refusal. Traffic recorded today stays unreadable to
+      tomorrow's computers — ahead of CNSA 2.0 timelines, and of where the incumbent cloud
+      messengers publicly are.</p>
+      <p>Team trust is a <b>roster signed by your team lead's key</b>. Policy — retention,
+      expiry caps, marking banners, mandatory at-rest encryption — is enforced by every
+      member's machine, not suggested by an admin console. A sub on three programs follows
+      three rosters at once; where they overlap, the strictest policy wins.</p>
+
+      <div class="pull">
+        <p>"Relayed provenance is proof, not trust — a tampered message is refused
+        outright, and the refusal lands in the audit chain."</p>
+        <div class="who">— the property that makes store-and-forward safe</div>
+      </div>
+
+      <div class="sect"><span class="no">02</span><h2>Where clouds can't go</h2></div>
+      <p>Two laptops on one network segment find each other in under a minute — no
+      configuration, no internet, an identity-free beacon. Messages relay through teammates
+      to people you never overlap with, signatures intact, and <b>2&nbsp;GB chunked
+      transfers</b> survive a dropped link and a full restart — resuming where they
+      stopped, hash-verified on both ends.</p>
+    </div>
+
+    <!-- ✂ SLOT: margin rail — one stamp, then asides/bigstats. Keep it playful. -->
+    <div class="railcol">
+      <div class="stamp">Field Copy<br>Issue Nº 001 · DDIL Rated</div>
+      <div class="bigstat"><div class="n">$0</div><div class="l">per seat, per month, forever — MIT licensed</div></div>
+      <div class="bigstat"><div class="n">&lt;60s</div><div class="l">two laptops, one LAN, zero config, zero internet</div></div>
+      <div class="bigstat"><div class="n">2 GB</div><div class="l">resumable, hash-verified file transfers</div></div>
+      <div class="aside">
+        <div class="amark">◆ Why "Freehold"</div>
+        <p>A <b>freehold</b> is property held outright — no landlord, no rent, no one who can
+        let themselves in. That is the architecture, in one word.</p>
+      </div>
+      <div class="aside">
+        <div class="amark">◆ The lineage</div>
+        <p>Freehold is built on the <b>chat-tunnel</b> protocol — the wire keeps the old name
+        so existing installs upgrade in place. Nothing re-keys, nothing moves.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="folio">
+    <span><b>MacZine</b> · Field Report</span>
+    <span>Freehold · secure comms you hold outright</span>
+    <span class="pg">01 / 02</span>
+  </div>
+</div>
+
+<!-- ================================================================
+     SHEET 2 — compliance · deployment · honesty · colophon
+     ================================================================ -->
+<div class="sheet">
+  <div class="masthead small">
+    <div class="wordmark"><span class="mac">Mac</span><span class="zine">Zine</span></div>
+    <div class="issueline"><b>Freehold</b> · Field Report · continued</div>
+  </div>
+  <div class="rules"></div>
+
+  <div class="grid" style="margin-top:16px">
+    <div class="colmain">
+      <div class="sect" style="border-top:none; padding-top:0"><span class="no">03</span><h2>Compliance without a cloud</h2></div>
+      <p>This is the part that matters at assessment time. One command exports a <b>signed
+      evidence bundle</b> — verified audit chain, roster policy, retention settings, crypto
+      inventory — mapped to <b>NIST SP 800-171</b> control families and verifiable offline by
+      a third party with nothing but Node.js. Drop it in an SSP; hand it to a C3PAO.</p>
+      <p><b>Records channels</b> resolve the retention-versus-ephemerality tension the DoD IG
+      has documented, instead of dodging it: roster policy declares a channel append-only,
+      deletion and self-destruct are refused on every member's machine, and signed,
+      timestamped transcripts export on demand — while everything outside records channels
+      stays as ephemeral as the team wants. CUI marking banners are enforced on both ends.</p>
+      <p>Even the traffic-metadata claims ship with a review procedure: the app states exactly
+      what a network observer can and cannot see, and includes a packet-capture verifier so a
+      reviewer who does not trust the claim can check it against real bytes.</p>
+
+      <div class="sect"><span class="no">04</span><h2>A real daily driver</h2></div>
+      <p>None of this would matter if the tool lost to convenience. The web UI is a full
+      Slack-style client — channels, threads, reactions, editing, unread badges, @mentions,
+      desktop notifications, search, voice and video calls, screen sharing — plus a complete
+      terminal client. One identity spans up to eight machines; a stolen laptop is revoked
+      account-wide and stops receiving ciphertext entirely. At rest, an optional vault
+      encrypts everything under a passphrase-derived key, with idle auto-relock, a duress
+      passphrase, and a dead-man switch for abandoned machines.</p>
+
+      <div class="sect"><span class="no">05</span><h2>Five minutes, no IT dept.</h2></div>
+      <div class="steps">
+        <div class="stp"><div class="sn">1</div><h4>Double-click</h4><p>Node.js is the only
+        prerequisite. <code>start-ui.command</code> (macOS) or <code>start-ui.bat</code>
+        (Windows) installs and opens the app.</p></div>
+        <div class="stp"><div class="sn">2</div><h4>Swap UIDs once</h4><p>Send yours over any
+        channel you already trust; add theirs. Verify with matching emoji fingerprints on
+        your first call.</p></div>
+        <div class="stp"><div class="sn">3</div><h4>Operational</h4><p>Direct encrypted links
+        come up on their own — no port forwarding, no firewall tickets, no server. One roster
+        file is the whole admin story.</p></div>
+      </div>
+
+      <p>Every capability in this report is enforced by the protocol and proven by an
+      automated end-to-end gate — <b>21 test suites that spawn real nodes over the real
+      network and try to break the claim</b>: a carrier who alters a relayed message is
+      refused; a tampered evidence bundle fails verification; a 1&nbsp;GB transfer killed at
+      30% resumes byte-identical; padded messages of different lengths are byte-identical on
+      the wire. That discipline, more than any single feature, is the product.&nbsp;<span class="endmark">◆</span></p>
+
+      <!-- ✂ SLOT: colophon — keep on the final sheet -->
+      <div class="colophon">
+        <span><b>GET IT</b><br>github.com/WELCOMETOTHETRIBE/chat-tunnel<br>free · open source · MIT</span>
+        <span><b>PILOT IT</b><br>MacTech runs Freehold pilots for program teams,<br>posture review included — mactechsolutionsllc.com/contact</span>
+        <span><b>MACZINE</b><br>Written, reviewed and versioned in the open.<br>Published from Git, reviewed like code.</span>
+      </div>
+    </div>
+
+    <div class="railcol">
+      <div class="panel honest">
+        <div class="ptitle"><span class="tick">◆</span> What it does NOT claim</div>
+        <ul>
+          <li>No IL4/IL5, no FedRAMP — a records-honest <i>complement</i> to accredited tools, never a substitute. Confirm CUI use with your FSO.</li>
+          <li>Program-team scale: tens of people, not thousands of seats.</li>
+          <li>Desktop today; no mobile client yet.</li>
+          <li>No magic: a compromised laptop beats any messenger, and a forgotten vault passphrase has no recovery — nobody else holds your keys.</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <div class="ptitle"><span class="tick">◆</span> vs. renting a messenger</div>
+        <ul>
+          <li><b>Cost</b> — $0 vs ~$5–15/user/mo (retention in premium tiers)</li>
+          <li><b>Infrastructure</b> — none vs vendor cloud holding metadata</li>
+          <li><b>Cross-org</b> — import a roster file vs admin-gated federation</li>
+          <li><b>Air-gapped</b> — native vs no cloud, no service</li>
+          <li><b>Post-quantum</b> — on every link today vs no public evidence</li>
+          <li><b>Evidence</b> — signed 800-171 bundle vs the vendor's own paperwork</li>
+        </ul>
+      </div>
+      <div class="aside">
+        <div class="amark">◆ Read next</div>
+        <p><b>The First 90 Days of a CMMC Level 2 Program</b> — scoping the CUI boundary before
+        you spend a dollar. mactechsolutionsllc.com/maczine</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="folio">
+    <span><b>MacZine</b> · Issue Nº 001 · July 2026</span>
+    <span>© MacTech Solutions LLC</span>
+    <span class="pg">02 / 02</span>
+  </div>
+</div>
+
+</body>
+</html>

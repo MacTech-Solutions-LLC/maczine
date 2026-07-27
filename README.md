@@ -89,3 +89,18 @@ node scripts/build-article.mjs --all --pdf             # everything
 npm install
 npm run lint
 ```
+
+## PDF edition (MacZine article template)
+
+`template/maczine-article.html` is the definitive print template — and its
+first pilot (the Freehold field report). Design language: warm paper, ink
+navy, one burnt-orange editorial accent; serif reading column plus a
+margin rail for asides, stamps and big stats. To produce a new article
+PDF, copy the file, replace the blocks marked `✂ SLOT`, balance content
+across `.sheet` blocks (one per page), then:
+
+```bash
+node scripts/render-pdf.mjs template/renders/<slug>.html
+```
+
+No dependencies — the script uses locally installed Chrome/Chromium/Edge.
