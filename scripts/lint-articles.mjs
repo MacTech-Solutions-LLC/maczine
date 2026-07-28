@@ -41,6 +41,9 @@ const dirs = readdirSync(ARTICLES).filter((d) =>
 // Drafts stay unnumbered — a number is earned at publish, which is what
 // keeps the printed run gap-free.
 const issueOwners = new Map()
+/** slug -> { hidden, links } so cross-article links can be checked once
+ *  every article's draft state is known. */
+const catalog = new Map()
 
 for (const slug of dirs) {
   if (!SLUG_RE.test(slug)) {
@@ -114,6 +117,32 @@ for (const slug of dirs) {
   }
   if (/^#\s/m.test(content)) {
     warn(slug, 'body contains an h1 (`# `) — the title already renders as h1; use `##`')
+  }
+
+  // Record internal MacZine links for the cross-article pass below.
+  const links = []
+  for (const m of content.matchAll(/\]\(\/maczine\/([a-z0-9-]+)\)/g)) {
+    links.push(m[1])
+  }
+  catalog.set(slug, { hidden: data.draft === true, links })
+}
+
+// Cross-article pass: a link to a hidden or missing article is a live
+// 404 on a published page. This shipped once — Issue Nº 004 linked a
+// piece that was later hidden from the Press Room, and nothing caught
+// it until a link crawl found it months later.
+for (const [slug, { hidden, links }] of catalog) {
+  if (hidden) continue // a hidden article's links aren't public yet
+  for (const target of links) {
+    const dest = catalog.get(target)
+    if (!dest) {
+      err(slug, `links to /maczine/${target}, which does not exist — dead internal link`)
+    } else if (dest.hidden) {
+      err(
+        slug,
+        `links to /maczine/${target}, which is hidden (draft: true) — that URL 404s for readers`,
+      )
+    }
   }
 }
 

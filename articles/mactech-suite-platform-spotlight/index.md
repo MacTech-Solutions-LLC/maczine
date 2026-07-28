@@ -79,9 +79,7 @@ reference repos in a few clicks, and that commission becomes a GitHub
 issue mentioning @claude on this content repository. A writer agent
 drafts the piece, opens a pull request, and a human merge publishes it
 to mactechsolutionsllc.com/maczine in seconds — with a print-style field
-copy PDF rendered by CI alongside it. Both
-[the Freehold field report](/maczine/freehold-secure-comms-you-hold-outright)
-and [the piece on why MacZine publishes from a git repo](/maczine/why-maczine-publishes-from-git)
+copy PDF rendered by CI alongside it. [The Freehold field report](/maczine/freehold-secure-comms-you-hold-outright)
 came out of that same pipeline. So, for what it's worth, did this one —
 a detail worth one sentence and no more, because the story is the
 pattern, not the self-reference.
