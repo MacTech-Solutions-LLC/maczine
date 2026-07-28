@@ -12,7 +12,7 @@
 // definitive, hand-balanced two-sheet edition (fixed .sheet pages, rail
 // composed by eye). This builder carries the same design language —
 // paper/ink/one-accent tokens, serif column, grotesque marginalia, drop
-// cap, numbered sections, stamp, end-mark, colophon — but lets content
+// cap, ruled section heads, stamp, end-mark, colophon — but lets content
 // FLOW across pages, because generated copy can't be balanced by eye.
 // For a showcase issue, still craft it in the template by hand.
 //
@@ -57,14 +57,15 @@ function buildHtml(dir) {
     : 'From the field')
 
   // --- markdown → press-room HTML -----------------------------------
-  let sectNo = 0
   let paraNo = 0
   const renderer = {
     heading({ tokens, depth }) {
       const text = this.parser.parseInline(tokens)
       if (depth <= 2) {
-        sectNo += 1
-        return `<div class="sect"><span class="no">${pad3(sectNo).slice(1)}</span><h2>${text}</h2></div>\n`
+        // Ruled head, author's own wording. No auto-numbering: stamping
+        // 01/02/03 on every article made every piece look like the same
+        // listicle no matter how it was written.
+        return `<div class="sect"><h2>${text}</h2></div>\n`
       }
       return `<h3 class="subhed">${text}</h3>\n`
     },
@@ -190,11 +191,9 @@ function buildHtml(dir) {
   .flow code { font-family: var(--mono); font-size: 9px; background: #f0e9dc; padding: 1px 4px; border-radius: 2px; }
   .flow pre code { background: none; padding: 0; }
 
-  .sect { display: flex; align-items: baseline; gap: 10px; margin: 13px 0 7px;
-          border-top: 1px solid var(--hair); padding-top: 9px; break-after: avoid; }
-  .sect .no { font-size: 26px; font-weight: 700; color: var(--accent); }
-  .sect h2 { font-family: var(--grot); font-size: 11px; font-weight: 800; letter-spacing: 2.4px;
-             text-transform: uppercase; color: var(--ink); }
+  .sect { margin: 14px 0 7px; border-top: 1px solid var(--hair); padding-top: 9px;
+          break-after: avoid; }
+  .sect h2 { font-size: 16px; font-weight: 700; line-height: 1.25; color: var(--ink); }
   .subhed { font-family: var(--grot); font-size: 10px; font-weight: 800; letter-spacing: 1.6px;
             text-transform: uppercase; margin: 10px 0 5px; break-after: avoid; }
 

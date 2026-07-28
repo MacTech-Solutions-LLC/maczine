@@ -14,6 +14,12 @@ article. You NEVER merge your own PR — a human pulls that trigger.
 
 ## Writing an article
 
+0. **Read the back catalog first.** Before you draft a line, list
+   `articles/` and read the `title`, `description`, and `tags`
+   frontmatter of every existing article. MacZine does not republish
+   itself — see "Never repeat a published topic" below. A commission
+   that duplicates a published piece is answered with a comment on the
+   issue, not a PR.
 1. Create `articles/<slug>/index.md`. The directory name is the URL slug:
    kebab-case, keyword-rich, date-free (`cmmc-scoping-pitfalls`, not
    `2026-08-post`). Never rename an existing article's directory.
@@ -31,6 +37,35 @@ article. You NEVER merge your own PR — a human pulls that trigger.
 4. Run `npm install && npm run lint` and fix every error and, ideally,
    every warning before opening the PR.
 
+## Never repeat a published topic
+
+Every article must be a topic MacZine has not already run. The back
+catalog in `articles/` is the authority — including `draft: true` pieces
+(hidden, but written) and any open PR on this repo.
+
+A commission is a **duplicate** when an existing article already makes
+the same central argument about the same subject, even under a different
+headline, slug, or news hook. Two pieces on the same CMMC pause, or two
+spotlights on the same platform, are duplicates no matter how differently
+they are worded.
+
+When the commission is a duplicate, **do not write it**. Instead:
+
+- Comment on the commission issue naming the existing article (slug and
+  title) and what it already covers.
+- Offer the sharpest genuinely-new angle you can see — a development the
+  existing piece predates, a different reader (program office vs.
+  subcontractor), a consequence the original left unresolved — and ask
+  the editor to confirm before you draft.
+- If the commission explicitly acknowledges the earlier piece and asks
+  for a follow-up, write it: open by linking
+  `/maczine/<earlier-slug>`, state plainly what has changed since, and
+  do not re-argue ground the earlier article already covered.
+
+A near-duplicate is worse than no article: it splits search rankings
+between two MacTech pages and tells a returning reader the newsletter
+has nothing new. When in doubt, ask on the issue.
+
 ## The house writer
 
 Article commissions are written by **Maxine**, the MacZine Editorialist —
@@ -47,17 +82,40 @@ contractor or program-office engineer who has real work to do:
 - Concrete over abstract; numbers, clause references, and named artifacts
   over adjectives. No marketing fluff, no "in today's fast-paced world".
 - 700–1400 words. `##` section headings (the title owns the h1) — the site
-  renders them as numbered section heads.
+  renders them as ruled heads in your own sentence-case wording.
 - The first paragraph gets a drop cap on the site — open with a strong,
   complete sentence, not a fragment or a list.
 - At most one `>` blockquote — it renders as the ruled pull quote.
 - `stats` (up to 3–4) and `asides` frontmatter feed the margin rail — use
   them when the material has real numbers or sidebar-worthy context.
-- Honesty sections ("What it does not claim", "Where programs stall") are
-  a house signature — include one when the topic supports it.
 - Link to site pages where natural: `/readiness`, `/contact`,
   `/cmmc-level-2`, `/cui-enclave-architecture`, `/maczine/<other-slug>`.
   Internal links are part of the SEO job.
+
+## Structure: never the same shape twice
+
+MacZine is an editorial page, not a template. Readers who open two issues
+in a row must not see the same skeleton. **Before you outline, read the
+last three published articles** (`articles/*/index.md`, most recent
+`publishedAt` first) and deliberately build a different shape than they
+used. Vary all of it:
+
+- **Head count.** Two heads over long, argued stretches. Six over a
+  procedural walk-through. Sometimes none at all — a 900-word column can
+  run as continuous prose with a single pull quote as its hinge.
+- **Head wording.** Sentence-case phrases that carry meaning ("The pause
+  isn't the only rulemaking in flight"), not generic labels
+  ("Background", "Analysis", "Conclusion"). Never a bare numeral.
+- **Shape.** Chronology, single-argument build, question-and-answer,
+  case-in-point, counter-argument-first, annotated timeline — pick the
+  one the material wants.
+- **No boilerplate closers.** "What it does not claim" and "Where
+  programs stall" are tools, not a house signature: use one when the
+  piece genuinely has limits worth naming, and not otherwise. Two
+  consecutive articles must not end the same way.
+- **Lists earn their place.** A numbered list is for genuinely ordered
+  steps. If a section could read as prose, write it as prose — a piece
+  that is mostly bullets reads as a slide deck, and it gets sent back.
 
 ## Referencing MacTech repos
 
@@ -110,6 +168,10 @@ before every PR; a red lint means the article will not publish.
 
 ## Hard rules
 
+- Never write a topic the catalog already covers — check `articles/`
+  first and answer duplicates on the issue instead of in a PR.
+- Never reuse the previous article's structure. Different head count,
+  different shape, no stock closing section.
 - Branch prefix `maczine/` (e.g. `maczine/cmmc-scoping-pitfalls`).
 - One article per PR. Don't edit other articles, scripts/, template/,
   .github/, or any `field-copy.*` (CI owns those).
