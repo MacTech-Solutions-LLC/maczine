@@ -8,7 +8,7 @@ tags:
   - dfars
   - nist-800-171
   - compliance
-kicker: Field Note · CMMC Reform
+kicker: Regulatory Watch · CMMC Reform
 stats:
   - n: "60"
     label: day reform review the Department of War opened alongside the pause

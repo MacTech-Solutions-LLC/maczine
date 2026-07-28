@@ -2,13 +2,13 @@
 title: "MacTech Suite: Running Twenty Platforms Without Twenty Teams"
 description: "Inside the MacTech Suite: the internal command center that fixes deploys, fixes UI bugs, and now commissions MacZine — every action gated and logged."
 publishedAt: 2026-07-27
+issue: 4
 author: MacTech Solutions
 tags:
   - ai-automation
   - devsecops
   - mactech-suite
   - platform-engineering
-issue: 2
 kicker: Platform Spotlight · AI & Automation
 stats:
   - n: "~20"

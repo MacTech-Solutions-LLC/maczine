@@ -43,7 +43,7 @@ tags:                                                 # optional, lowercase
   - nist-800-171
 coverImage: ./cover.png                               # optional, relative or absolute
 draft: false                                          # optional; true = not synced
-issue: 3                                              # optional; "Issue Nº 003" masthead
+issue: 3                                              # REQUIRED unless draft; "Issue Nº 003"
 kicker: Field Report · Secure Communications          # optional; defaults to first tag
 stats:                                                # optional; margin-rail big stats
   - n: "$0"
@@ -64,17 +64,23 @@ Body is GitHub-flavored Markdown. Relative image links
 - Use `##` for section headings (the h1 is taken by the title)
 - Internal links to the site (`/cmmc-level-2`, `/readiness`) pass link equity — use them
 
-## The catalog: Issue Nº vs Field Notes
+## The catalog: one numbered series
 
-Two series, no overlap — this is what keeps the index unambiguous:
+Every article that publishes is a numbered issue. There is no second
+series — the old unnumbered "Field Notes" are gone, folded into the run.
 
-- **Issue Nº** — articles with `issue:` in frontmatter. One shared series,
-  starting at the Freehold pilot (`issue: 1` → "Issue Nº 001"). Numbers are
-  unique forever (lint fails a duplicate) and assigned at publish time:
-  take the next free number.
-- **Field Notes** — articles *without* `issue:`. They render with the
-  ◆ mark and a "Field Notes" label, never a numeral. Use this for
-  announcements, shorter pieces, or anything that isn't a full issue.
+- `issue:` is **required** on any article without `draft: true`. Lint
+  fails a missing number and a duplicate one.
+- Numbers run in **publication order** — `issue: 1` is the first piece
+  MacZine ever ran, and the newest issue always holds the highest
+  number. The site sorts the index by this field, so the numerals and
+  the order a reader sees are the same thing.
+- A number is **earned at publish**, not at authorship. A draft carries
+  no `issue:`; it takes the next free one when it goes live (the Press
+  Room's unhide action assigns it automatically). That is what keeps the
+  printed run gap-free.
+- Numbers are never reused and never reshuffled. To add a piece, take
+  the next number — don't renumber anything to make room.
 
 ## Field copies (the press-room PDF)
 

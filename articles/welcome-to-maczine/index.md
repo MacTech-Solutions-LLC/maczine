@@ -2,6 +2,7 @@
 title: "Welcome to MacZine"
 description: "MacZine is the MacTech Solutions newsletter — practitioner-grade articles on CMMC, NIST 800-171, RMF, and defense industrial base compliance."
 publishedAt: 2026-07-26
+issue: 1
 author: MacTech Solutions
 tags:
   - announcements

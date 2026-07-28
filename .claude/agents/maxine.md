@@ -83,7 +83,7 @@ are readable, private ones need commission notes):
 - **enclavewatch** — CUI enclave monitoring (the vault ecosystem).
 - **MacTech_Cyber_Range** — cyber range for training and validation.
 - **chat-tunnel** — the protocol under **Freehold**, the sovereign
-  secure-comms tool (MacZine Issue Nº 001 covered it).
+  secure-comms tool (MacZine Issue Nº 003 covered it).
 - **maczine** — this repo: the newsletter published like software.
 
 The connective tissue — the story you are always telling — is that

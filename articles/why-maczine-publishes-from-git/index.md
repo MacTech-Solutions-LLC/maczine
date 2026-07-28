@@ -7,10 +7,10 @@ tags:
   - maczine
   - publishing
   - transparency
-kicker: Field Notes · How We Publish
+kicker: How We Publish
 asides:
-  - title: Two series, one linter
-    body: '"Issue Nº" articles carry an `issue:` number; Field Notes do not. A script checks every pull request and fails the build on a duplicate number, a missing field, or an oversize title — the catalog rule is enforced by code, not remembered by an editor.'
+  - title: One series, one linter
+    body: 'Every published article carries a unique `issue:` number, assigned in publication order. A script checks every pull request and fails the build on a missing number, a duplicate one, a missing field, or an oversize title — the catalog rule is enforced by code, not remembered by an editor.'
 draft: true
 ---
 
@@ -42,14 +42,16 @@ no separate "approved" state that lives outside version control. The
 review *is* a piece of the commit graph, permanently attached to the
 words it approved.
 
-## Two series, enforced by code
+## The catalog, enforced by code
 
-MacZine's catalog splits every piece into one of two series: numbered
-**Issue Nº** articles, which carry an `issue:` field in frontmatter, and
-unnumbered **Field Notes** — announcements and shorter pieces like this
-one — which omit it. That distinction isn't a style-guide convention an
-editor has to remember to apply. `scripts/lint-articles.mjs` runs on every
-pull request and fails the build if an issue number repeats, if a required
+MacZine runs one numbered series: every article that publishes carries an
+`issue:` field, assigned in publication order, so Issue Nº 001 is the
+first piece the newsletter ever ran and the newest issue always holds the
+highest number. A number is earned at publish, not at authorship — a
+draft carries none until it goes live. That isn't a style-guide
+convention an editor has to remember to apply.
+`scripts/lint-articles.mjs` runs on every pull request and fails the
+build if an article publishes without a number, if a number repeats, if a required
 frontmatter field is missing, if `tags` isn't a list, or if the body
 smuggles in a stray `# ` heading that would collide with the page's own
 h1. The catalog stays unambiguous because a script — not a style guide —

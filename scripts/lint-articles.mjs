@@ -35,9 +35,11 @@ const dirs = readdirSync(ARTICLES).filter((d) =>
   statSync(join(ARTICLES, d)).isDirectory(),
 )
 
-// Catalog rule: issue numbers form ONE series (001 = the Freehold
-// pilot), assigned in frontmatter, never reused. Articles without an
-// issue are "Field Notes" and stay unnumbered everywhere.
+// Catalog rule: ONE series, no exceptions. Every article that publishes
+// carries a unique `issue`, assigned in chronological order (001 = the
+// first piece), so the numerals ARE the sequence the index sorts by.
+// Drafts stay unnumbered — a number is earned at publish, which is what
+// keeps the printed run gap-free.
 const issueOwners = new Map()
 
 for (const slug of dirs) {
@@ -69,6 +71,12 @@ for (const slug of dirs) {
   }
   if (data.tags && !Array.isArray(data.tags)) {
     err(slug, 'tags must be a YAML list')
+  }
+  if (data.issue === undefined && data.draft !== true) {
+    err(
+      slug,
+      'missing issue — every published article is a numbered issue (set `issue:` to the next free number, or `draft: true` if it is not ready)',
+    )
   }
   if (data.issue !== undefined && (!Number.isInteger(data.issue) || data.issue < 1)) {
     err(slug, `issue must be a positive integer, got "${data.issue}"`)

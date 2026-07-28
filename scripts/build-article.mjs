@@ -51,7 +51,9 @@ function buildHtml(dir) {
 
   const words = content.trim().split(/\s+/).length
   const minutes = Math.max(1, Math.round(words / 200))
-  const issueLabel = fm.issue ? `Issue Nº ${pad3(fm.issue)}` : 'Field Notes'
+  // One series — every published article is numbered. The bare mark is
+  // for a draft that hasn't earned its number yet.
+  const issueLabel = fm.issue ? `Issue Nº ${pad3(fm.issue)}` : '◆'
   const kicker = fm.kicker || (Array.isArray(fm.tags) && fm.tags[0]
     ? String(fm.tags[0]).replace(/-/g, ' ')
     : 'From the field')

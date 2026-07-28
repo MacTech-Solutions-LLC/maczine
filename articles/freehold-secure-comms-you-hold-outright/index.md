@@ -2,6 +2,7 @@
 title: "Freehold: Secure Comms You Hold Outright"
 description: "Peer-to-peer encrypted chat, calls and 2 GB file transfer for small DIB teams — post-quantum, air-gap ready, 800-171 evidence built in. Free, open source."
 publishedAt: 2026-07-26
+issue: 3
 author: MacTech Solutions
 tags:
   - freehold
@@ -9,7 +10,6 @@ tags:
   - cui
   - nist-800-171
   - post-quantum
-issue: 1
 kicker: Field Report · Secure Communications
 stats:
   - n: "$0"

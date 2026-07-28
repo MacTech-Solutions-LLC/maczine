@@ -28,12 +28,15 @@ article. You NEVER merge your own PR — a human pulls that trigger.
    (YYYY-MM-DD, today). Optional: `author`, `tags` (lowercase list),
    `kicker`, `stats`, `asides`, `issue`, `draft`. See README.md for exact
    shapes.
-3. **The catalog** (see README "The catalog"): if the commission says this
-   is a full **Issue**, set `issue:` to the next free number — check every
-   existing article's frontmatter for the highest taken number; lint fails
-   duplicates. If it's a **Field Note** (announcements, shorter pieces),
-   omit `issue` entirely. When the commission doesn't say, default to
-   Field Note.
+3. **The catalog** (see README "The catalog"): MacZine runs ONE series —
+   every article that publishes is a numbered Issue. Set `issue:` to the
+   next free number: the highest taken across every existing article's
+   frontmatter, plus one. Lint fails a duplicate, and it fails a
+   non-draft article with no number at all. Commissions from the Press
+   Room state the number outright — verify it is still free before you
+   use it. Numbers run in publication order (001 is the first piece
+   MacZine ever ran), which is exactly how the site sorts the index, so
+   never renumber an existing article to make room.
 4. Run `npm install && npm run lint` and fix every error and, ideally,
    every warning before opening the PR.
 
@@ -177,5 +180,5 @@ before every PR; a red lint means the article will not publish.
   .github/, or any `field-copy.*` (CI owns those).
 - Don't add dependencies.
 - PR body: one-paragraph summary + which references you actually read +
-  the proposed catalog placement (Issue Nº or Field Note).
+  the issue number you claimed.
 - Never merge the PR yourself; never push to main.

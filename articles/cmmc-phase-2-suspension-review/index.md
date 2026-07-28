@@ -2,6 +2,7 @@
 title: "CMMC Phase 2 Is Paused. Your Compliance Clock Isn't."
 description: "DoD paused CMMC Phase 2 certification to review the program — the DFARS and NIST 800-171 obligations under it did not. What to do during the review."
 publishedAt: 2026-07-27
+issue: 5
 author: MacTech Solutions
 tags:
   - cmmc

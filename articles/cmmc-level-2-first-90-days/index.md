@@ -2,6 +2,7 @@
 title: "The First 90 Days of a CMMC Level 2 Program"
 description: "A practitioner's sequence for the first 90 days of CMMC Level 2: scope the CUI boundary, baseline against NIST 800-171, and start evidence discipline early."
 publishedAt: 2026-07-26
+issue: 2
 author: MacTech Solutions
 tags:
   - cmmc
