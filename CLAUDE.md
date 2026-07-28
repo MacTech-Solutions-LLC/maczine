@@ -166,6 +166,18 @@ body: "Department of War" is the renamed DoD.
 body: '"Department of War" is the renamed DoD.'
 ```
 
+A title containing a colon has the same problem for a different reason —
+YAML reads `Title: subtitle` as a nested mapping and the parse fails:
+
+```yaml
+# WRONG — "mapping values are not allowed here"
+title: EnclaveWatch: Monitoring a CUI Vault
+# RIGHT
+title: "EnclaveWatch: Monitoring a CUI Vault"
+```
+
+Platform-spotlight headlines take this shape constantly. Quote them.
+
 Run `npm run lint` (or hand-check against `scripts/lint-articles.mjs`)
 before every PR; a red lint means the article will not publish.
 

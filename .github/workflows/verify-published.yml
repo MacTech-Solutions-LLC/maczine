@@ -1,0 +1,35 @@
+name: Verify scheduled articles are live
+
+# Articles publish by date: the site shows a piece once its
+# `publishedAt` has passed, so no job has to run for one to go live.
+# This is the check on that, for the failures date-gating can't prevent
+# — an unmerged PR, a missed sync webhook, a broken deploy. A queued
+# article that silently never appears is the risk of scheduling ahead.
+on:
+  schedule:
+    # 13:07 UTC daily. Off the hour so it isn't queued behind every
+    # other :00 job, and well after the 00:00 UTC gate opens.
+    - cron: '7 13 * * *'
+  workflow_dispatch:
+  # Also on push, so merging the batch confirms it landed rather than
+  # leaving you to find out tomorrow.
+  push:
+    branches: [main]
+    paths:
+      - 'articles/**'
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      # A push takes a moment to sync through the webhook into the site
+      # database; don't race it.
+      - name: Wait for sync
+        if: github.event_name == 'push'
+        run: sleep 90
+      - run: node scripts/verify-published.mjs
