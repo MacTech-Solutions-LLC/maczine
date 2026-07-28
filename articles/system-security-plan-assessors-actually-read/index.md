@@ -2,7 +2,7 @@
 title: The System Security Plan an Assessor Actually Reads
 issue: 9
 description: Most SSPs are written to be filed, not read. Here is how a C3PAO assessor moves through the document, and what they are checking at each stop.
-publishedAt: 2026-07-28
+publishedAt: 2026-08-04
 tags:
   - cmmc
   - nist-800-171

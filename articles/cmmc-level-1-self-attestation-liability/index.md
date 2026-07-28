@@ -2,7 +2,7 @@
 title: Who Signs Your Self-Attestation, and What They Are Signing
 issue: 13
 description: Self-attestation is not a lighter version of an assessment. It moves the assessment risk onto a named individual — and the False Claims Act is where that lands.
-publishedAt: 2026-07-28
+publishedAt: 2026-08-18
 tags:
   - cmmc
   - compliance

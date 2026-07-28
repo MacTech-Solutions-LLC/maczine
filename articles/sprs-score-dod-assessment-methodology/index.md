@@ -2,7 +2,7 @@
 title: How Your SPRS Score Is Actually Calculated
 issue: 8
 description: The DoD Assessment Methodology scores 110 controls on a 5/3/1 weighting and bottoms out at -203. Here is the arithmetic, and how a CO reads it.
-publishedAt: 2026-07-28
+publishedAt: 2026-07-30
 tags:
   - nist-800-171
   - dfars

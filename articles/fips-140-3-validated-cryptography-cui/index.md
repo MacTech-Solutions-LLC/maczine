@@ -2,7 +2,7 @@
 title: FIPS 140-3 Is the Control That Fails Quietly
 issue: 14
 description: Encryption that is strong is not the same as encryption that is validated. The distinction costs 5 SPRS points and it is invisible until an assessor looks.
-publishedAt: 2026-07-28
+publishedAt: 2026-08-20
 tags:
   - nist-800-171
   - cui

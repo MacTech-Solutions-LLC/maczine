@@ -2,7 +2,7 @@
 title: RMF and CMMC Are Not the Same Program. Run Them as One.
 issue: 12
 description: RMF authorizes a system, CMMC certifies a contractor. They ask overlapping questions in different vocabularies — and paying twice is the mistake.
-publishedAt: 2026-07-28
+publishedAt: 2026-08-13
 tags:
   - rmf
   - cmmc
