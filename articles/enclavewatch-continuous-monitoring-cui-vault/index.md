@@ -2,7 +2,7 @@
 title: "EnclaveWatch: Monitoring a CUI Vault Without Draining It"
 issue: 16
 description: Continuous monitoring usually means shipping logs somewhere central. Inside a CUI boundary that is the one thing you should not do. EnclaveWatch inverts it.
-publishedAt: 2026-08-08T08:00:00-07:00
+publishedAt: 2026-08-12T08:00:00-07:00
 tags:
   - cui
   - cui-enclave

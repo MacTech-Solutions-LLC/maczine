@@ -2,7 +2,7 @@
 title: The 72-Hour Clock in DFARS 252.204-7012, Hour by Hour
 issue: 11
 description: DFARS 7012 gives you 72 hours to report a cyber incident to DoD. Walking the clock hour by hour shows where contractors actually lose the time.
-publishedAt: 2026-08-03T08:00:00-07:00
+publishedAt: 2026-08-05T08:00:00-07:00
 tags:
   - dfars
   - cmmc

@@ -2,7 +2,7 @@
 title: Enclave or Whole Network? The Scoping Decision, Priced
 issue: 10
 description: Scoping CMMC Level 2 to a CUI enclave or to your whole network is a cost decision disguised as an architecture decision. Here is how the two actually compare.
-publishedAt: 2026-08-02T08:00:00-07:00
+publishedAt: 2026-08-04T08:00:00-07:00
 tags:
   - cui
   - cui-enclave
