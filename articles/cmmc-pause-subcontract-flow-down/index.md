@@ -1,7 +1,7 @@
 ---
 title: "DoD Paused CMMC Phase 2. Your Subcontract Flow-Down Didn't."
 description: "DoD suspended CMMC Phase 2's federal clause, but a prime's subcontract requirement is a separate instrument — and it doesn't lift itself."
-publishedAt: 2026-07-28
+publishedAt: 2026-07-30T08:00:00-07:00
 issue: 7
 author: Maxine
 tags:

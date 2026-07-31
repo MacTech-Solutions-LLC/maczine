@@ -1,7 +1,7 @@
 ---
 title: "Building the Trusted Future: Infrastructure, AI, and MacTech"
 description: How MacTech combines infrastructure, security, quality, and governance into systems a defense contractor can trust — and where AI is allowed to decide.
-publishedAt: 2026-07-27
+publishedAt: 2026-07-29T08:00:00-07:00
 issue: 6
 author: James Adams
 tags:

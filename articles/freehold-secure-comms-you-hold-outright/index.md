@@ -1,7 +1,7 @@
 ---
 title: "Freehold: Secure Comms You Hold Outright"
 description: "Peer-to-peer encrypted chat, calls and 2 GB file transfer for small DIB teams — post-quantum, air-gap ready, 800-171 evidence built in. Free, open source."
-publishedAt: 2026-07-26
+publishedAt: 2026-07-22T08:00:00-07:00
 issue: 3
 author: MacTech Solutions
 tags:

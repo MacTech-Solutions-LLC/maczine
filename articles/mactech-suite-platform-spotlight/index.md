@@ -1,7 +1,7 @@
 ---
 title: "MacTech Suite: Running Twenty Platforms Without Twenty Teams"
 description: "Inside the MacTech Suite: the internal command center that fixes deploys, fixes UI bugs, and now commissions MacZine — every action gated and logged."
-publishedAt: 2026-07-27
+publishedAt: 2026-07-27T08:00:00-07:00
 issue: 4
 author: MacTech Solutions
 tags:
