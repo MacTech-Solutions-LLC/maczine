@@ -2,7 +2,7 @@
 title: "CaptureOS: Finding the Work You Are Still Eligible For"
 issue: 15
 description: Capture tools tell you what is available. Compliance tools tell you what you can hold. CaptureOS puts both in one system, because the answer moves together.
-publishedAt: 2026-08-25
+publishedAt: 2026-08-07T08:00:00-07:00
 tags:
   - defense-contracting
   - ai-automation

@@ -2,7 +2,7 @@
 title: Your Training Records Are Compliance Evidence. Are They?
 issue: 17
 description: Three CMMC controls turn security awareness training into an evidence problem. Most organizations do the training and fail the control anyway.
-publishedAt: 2026-09-01
+publishedAt: 2026-08-09T08:00:00-07:00
 tags:
   - cmmc
   - nist-800-171
