@@ -10,7 +10,7 @@ tags:
   - cui
 ---
 
-Most CMMC Level 2 programs don't fail at assessment — they fail in the
+Most CMMC Level 2 programs don't fail at assessment - they fail in the
 first quarter, when the scoping decisions and documentation habits that
 determine everything downstream get made by default instead of on purpose.
 Here is the sequence we run with new clients, and why the order matters.
@@ -20,14 +20,14 @@ Here is the sequence we run with new clients, and why the order matters.
 The single most expensive mistake in CMMC preparation is buying controls
 for systems that never needed to be in scope.
 
-**Find the CUI first.** Not "where could CUI be" — where it actually is.
+**Find the CUI first.** Not "where could CUI be" - where it actually is.
 Pull your active DoD contracts and look for the DFARS 252.204-7012 clause
 and CUI markings in the deliverable flow. Trace how that data enters your
 environment, who touches it, and where it rests. Every system in that path
 is in scope; everything else is a candidate for isolation.
 
-**Shrink the boundary aggressively.** A CUI enclave — a segmented
-environment where CUI lives and the rest of your business doesn't — is
+**Shrink the boundary aggressively.** A CUI enclave - a segmented
+environment where CUI lives and the rest of your business doesn't - is
 almost always cheaper than certifying your whole network. Ten workstations
 in an enclave beats two hundred in scope. This decision has to come first
 because it changes the denominator on every control that follows.
@@ -43,7 +43,7 @@ With a boundary drawn, assess the enclave against all 110 NIST SP 800-171
 requirements. Two rules make this useful instead of theater:
 
 1. **Score it like an assessor would.** "We mostly do this" is NOT MET.
-   The DoD assessment methodology is binary per objective — partial credit
+   The DoD assessment methodology is binary per objective - partial credit
    only exists in your POA&M, not your score.
 2. **Write the finding down even when it hurts.** Your SPRS score is a
    legal representation of this baseline. An honest 88 with a credible
@@ -64,11 +64,11 @@ reconstructed before the assessment.**
   store, named by control, dated, as changes are made
 - Recurring controls (access reviews, training, scans) get calendar
   entries with the evidence artifact as the meeting's required output
-- The SSP gets updated in the same change window as the system — a
+- The SSP gets updated in the same change window as the system - a
   document-as-you-build rule, borrowed from RMF practice, that is
   dramatically cheaper than document-after-the-fact
 
-By day 90 you are not assessment-ready — nobody is in one quarter. What
+By day 90 you are not assessment-ready - nobody is in one quarter. What
 you have is a scoped boundary that caps your cost, an honest score that
 caps your legal exposure, and an evidence pipeline that compounds instead
 of a binder that rots.

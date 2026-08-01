@@ -1,6 +1,6 @@
 ---
 title: "CUI Safeguarding Rulemaking Doesn't Pause When CMMC Does"
-description: "CMMC Phase 2 is paused, but that's only one clock. A CUI safeguarding rule and a CMMC reform RFI are moving on separate tracks — here's what to watch."
+description: "CMMC Phase 2 is paused, but that's only one clock. A CUI safeguarding rule and a CMMC reform RFI are moving on separate tracks - here's what to watch."
 publishedAt: 2026-07-27
 author: Maxine
 tags:
@@ -11,7 +11,7 @@ tags:
 kicker: Maxine's Pick · Regulatory Watch
 stats:
   - n: "3"
-    label: separate CUI/CMMC rulemaking or review tracks moving this month — only one of them paused
+    label: separate CUI/CMMC rulemaking or review tracks moving this month - only one of them paused
   - n: "72 hrs"
     label: DFARS 252.204-7012's cyber incident reporting clock, unmoved by any of it
 asides:
@@ -24,7 +24,7 @@ A single paused program has absorbed the entire industry's attention this
 month, and that is the mistake worth naming out loud: CMMC Phase 2 is one
 compliance clock among several running on a defense contractor's wall, and
 it is the only one that stopped. Coverage of the Pentagon's certification
-pause has been thorough — deservedly, since it touches assessment
+pause has been thorough - deservedly, since it touches assessment
 deadlines directly. But a contractor who reads "CMMC paused" as "DIB
 compliance paused" is watching one clock and assuming the room went quiet.
 
@@ -38,21 +38,21 @@ track and explicitly separate from the CMMC pause. JD Supra's roundup
 characterized it as part of a broader "wave" of proposed rules touching
 CUI, foreign ownership/control/influence (FOCI), and quantum readiness.
 And ArentFox Schiff flagged a CMMC Reform Task Force request for
-information — an open invitation for contractors to weigh in on what the
+information - an open invitation for contractors to weigh in on what the
 certification regime becomes next, rather than wait to receive it as a
 finished rule.
 
 None of that is the same instrument as CMMC Phase 2, and none of it was
 paused by the same memo. A FAR Council proposal on CUI safeguarding
-moves through the FAR rulemaking process — proposed rule, comment
-period, final rule — on its own calendar. A reform task force soliciting
+moves through the FAR rulemaking process - proposed rule, comment
+period, final rule - on its own calendar. A reform task force soliciting
 industry input is, by definition, still gathering information, not
 enforcing anything yet. Three distinct tracks, three distinct postures:
 one paused, one proposed, one open for comment. We read the source
 alerts named above; we did not independently pull the FAR case docket
 or the RFI's Federal Register notice this cycle, and we're not going to
 attach a comment deadline or a docket number to this piece that we
-haven't verified ourselves — check regulations.gov and
+haven't verified ourselves - check regulations.gov and
 [acquisition.gov](https://www.acquisition.gov) directly before you build
 a filing calendar around any secondhand date.
 
@@ -66,12 +66,12 @@ defense information to NIST SP 800-171 and reporting a cyber incident
 within 72 hours of discovery since 2017, and nothing in this month's
 digest touches that clause. What's different about the FAR Council
 proposal and the reform RFI is that they aren't reaffirming the status
-quo — they're actively trying to change the *next* version of the
+quo - they're actively trying to change the *next* version of the
 safeguarding and reporting framework, on a track that has nothing to do
 with whether CMMC Phase 2 assessments are currently scheduled.
 
 > A paused certification program and an open rulemaking are not the same
-> kind of quiet — one is a program on hold, the other is a program being
+> kind of quiet - one is a program on hold, the other is a program being
 > written, and only a contractor who reads past the headline can tell
 > them apart.
 
@@ -83,8 +83,8 @@ with whether CMMC Phase 2 assessments are currently scheduled.
   Follow the FAR case and any DFARS case separately from the CMMC
   program office's own announcements.
 - **Treat the reform RFI as a filing opportunity, not a footnote.** If
-  your program has scar tissue from a specific CMMC assessment mechanic —
-  scoping ambiguity, evidence format, C3PAO scheduling — an open RFI is
+  your program has scar tissue from a specific CMMC assessment mechanic -
+  scoping ambiguity, evidence format, C3PAO scheduling - an open RFI is
   the cheapest leverage you'll get to put that on the record before the
   next version locks it in. Submit through your own counsel or industry
   association; don't wait for someone else's comment to cover your case.
@@ -98,13 +98,13 @@ with whether CMMC Phase 2 assessments are currently scheduled.
   any of these three tracks resolves. [MacTech Codex](/cmmc-level-2)
   keeps mapping controls to evidence against that standing baseline;
   EnclaveWatch keeps producing signed audit trail on CUI systems on the
-  same weekly cadence — neither is built to key off a rulemaking's status,
+  same weekly cadence - neither is built to key off a rulemaking's status,
   because the underlying requirement doesn't wait for one to finish.
 
 ## What this does not claim
 
 We have not read the FAR Council's proposed rule text, the reform task
-force's RFI notice, or any comment deadline attached to either — we read
+force's RFI notice, or any comment deadline attached to either - we read
 the client-alert coverage named above, not the primary dockets, and
 we're saying so rather than dressing up secondhand reporting as verified
 fact. We don't know whether the CUI safeguarding proposal will survive
@@ -117,7 +117,7 @@ summarizing a summary.
 ## The operating posture
 
 The programs that stay ahead through a season like this aren't the ones
-that guessed right about which rule survives — they're the ones that
+that guessed right about which rule survives - they're the ones that
 kept a live map of every track touching their obligations, instead of
 collapsing them into one headline. If you want a second set of eyes on
 where your CUI safeguarding and incident-reporting posture actually

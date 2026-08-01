@@ -119,6 +119,29 @@ for (const slug of dirs) {
     warn(slug, 'body contains an h1 (`# `) — the title already renders as h1; use `##`')
   }
 
+  // No em dashes, ever - house style is a plain hyphen. Checked across
+  // the body and every string-bearing frontmatter field, not just the
+  // body, since a title/description/kicker/aside can carry one too.
+  const emDashFields = [
+    ['body', content],
+    ['title', data.title],
+    ['description', data.description],
+    ['kicker', data.kicker],
+    ...(Array.isArray(data.stats) ? data.stats.map((s, i) => [`stats[${i}].label`, s?.label]) : []),
+    ...(Array.isArray(data.asides)
+      ? data.asides.flatMap((a, i) => [
+          [`asides[${i}].title`, a?.title],
+          [`asides[${i}].body`, a?.body],
+        ])
+      : []),
+  ]
+  for (const [field, value] of emDashFields) {
+    if (typeof value === 'string' && value.includes('—')) {
+      const count = (value.match(/—/g) || []).length
+      err(slug, `${field} contains ${count} em dash${count === 1 ? '' : 'es'} (—) - house style is a plain hyphen (-), not an em dash`)
+    }
+  }
+
   // Record internal MacZine links for the cross-article pass below.
   const links = []
   for (const m of content.matchAll(/\]\(\/maczine\/([a-z0-9-]+)\)/g)) {

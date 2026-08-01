@@ -1,6 +1,6 @@
 ---
 title: "Building the Trusted Future: Infrastructure, AI, and MacTech"
-description: How MacTech combines infrastructure, security, quality, and governance into systems a defense contractor can trust — and where AI is allowed to decide.
+description: How MacTech combines infrastructure, security, quality, and governance into systems a defense contractor can trust - and where AI is allowed to decide.
 publishedAt: 2026-07-29T08:00:00-07:00
 issue: 6
 author: James Adams
@@ -13,7 +13,7 @@ tags:
 kicker: Vision · Infrastructure, AI & Trust
 stats:
   - n: "4"
-    label: pillars — Security, Infrastructure, Quality, Governance
+    label: pillars - Security, Infrastructure, Quality, Governance
   - n: Level 2
     label: the CMMC boundary the CUI enclave is built to hold
   - n: FIPS 140-3
@@ -22,9 +22,9 @@ stats:
     label: final compliance decisions AI makes without human approval
 asides:
   - title: Workload before platform
-    body: A MEDITECH database, a PACS image archive, and a nightly backup target look like three servers on a rack diagram. They are three different problems — compute profile, storage performance, network path, availability tier, and recovery objective all diverge. Picking the platform before you have characterized the workload is how a design ends up expensive and still wrong.
+    body: A MEDITECH database, a PACS image archive, and a nightly backup target look like three servers on a rack diagram. They are three different problems - compute profile, storage performance, network path, availability tier, and recovery objective all diverge. Picking the platform before you have characterized the workload is how a design ends up expensive and still wrong.
   - title: Freehold's honest boundary
-    body: Freehold is open-source, peer-to-peer encrypted communication with hybrid post-quantum protections and disconnected operation — genuinely useful for small program teams and cross-organizational work. It is a complement to accredited platforms, not a substitute for one. When a contract requires FedRAMP, IL4, or IL5, the accredited platform is the answer.
+    body: Freehold is open-source, peer-to-peer encrypted communication with hybrid post-quantum protections and disconnected operation - genuinely useful for small program teams and cross-organizational work. It is a complement to accredited platforms, not a substitute for one. When a contract requires FedRAMP, IL4, or IL5, the accredited platform is the answer.
 ---
 
 The next decade of federal information technology will not be decided by
@@ -32,7 +32,7 @@ infrastructure, cybersecurity, compliance, or artificial intelligence
 operating on their own. It will be decided by the organizations that can
 combine those disciplines into secure, practical systems that people are
 willing to trust with real work. That is a harder problem than any one of
-the four, and it is the problem MacTech Solutions is organized to solve —
+the four, and it is the problem MacTech Solutions is organized to solve -
 a Service-Disabled Veteran-Owned Small Business serving federal programs
 and defense contractors, built around four complementary pillars rather
 than a catalog of disconnected products.
@@ -71,7 +71,7 @@ compute, storage capacity and performance, network connectivity,
 availability, and recovery. Designing for them meant working across Dell
 PowerEdge servers, PowerStore and PowerScale storage, VMware
 virtualization, Cisco networking, PowerProtect Data Domain, cloud
-services, and disaster-recovery platforms — but the hardware was never
+services, and disaster-recovery platforms - but the hardware was never
 the design. The characterization of the workload was the design; the
 hardware was the consequence.
 
@@ -101,8 +101,8 @@ it connects applicable NIST SP 800-171 requirements to the specific
 configurations, policies, scripts, records, and artifacts that show how
 each requirement is met.
 
-Together they attack the two costs that crush small defense contractors —
-assessment scope and operational complexity — and they give a company a
+Together they attack the two costs that crush small defense contractors -
+assessment scope and operational complexity - and they give a company a
 coherent evidence story to tell a C3PAO instead of a scramble. That is
 the evolution in this business worth naming: converting expertise into
 something a customer can deploy, operate, maintain, and defend under
@@ -118,7 +118,7 @@ judgment.
 MacTech already uses AI-assisted capabilities in incident-response
 scenario development, MITRE ATT&CK mapping, After-Action Review drafting,
 and supporting compliance documentation. The published tools portfolio
-and development roadmap extend further — RMF artifact generation,
+and development roadmap extend further - RMF artifact generation,
 infrastructure compliance scanning, control validation,
 security-configuration generation, continuous-monitoring automation,
 evidence collection, vulnerability analysis, and authorization-readiness
@@ -159,7 +159,7 @@ program.
 
 Parts of the AI tooling portfolio are roadmap, and calling them shipped
 would undermine the argument this entire piece is making. Freehold is a
-complement to accredited platforms, not a replacement for one — a
+complement to accredited platforms, not a replacement for one - a
 contract requiring FedRAMP, IL4, or IL5 is answered by the authorized
 platform, full stop. The enclave reduces assessment scope; it does not
 eliminate assessment, and it does not absolve a company of running the

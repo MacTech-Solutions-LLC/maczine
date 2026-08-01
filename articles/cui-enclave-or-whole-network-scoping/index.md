@@ -11,7 +11,7 @@ tags:
 kicker: Buyer's Guide · CUI Handling
 stats:
   - n: "110"
-    label: controls you must satisfy — across whatever you put in scope
+    label: controls you must satisfy - across whatever you put in scope
   - n: "1"
     label: boundary decision that sets the cost of every other decision
 ---
@@ -34,21 +34,21 @@ The right-hand column is not wrong in principle. For an organization whose entir
 
 ## Why the enclave usually wins on arithmetic
 
-The enclave wins because 110 controls applied to eleven systems is a different project from 110 controls applied to a hundred and eleven — and because the hundred and eleven include the accounting server nobody has patched since it was installed, the shop-floor machine running an OS that is out of support, and the executive who will not accept multifactor authentication.
+The enclave wins because 110 controls applied to eleven systems is a different project from 110 controls applied to a hundred and eleven - and because the hundred and eleven include the accounting server nobody has patched since it was installed, the shop-floor machine running an OS that is out of support, and the executive who will not accept multifactor authentication.
 
 None of those are cybersecurity problems in the abstract. They become cybersecurity problems the moment your boundary encloses them, and each one is a finding, a remediation, and a line on a [POA&M](/maczine/system-security-plan-assessors-actually-read) that a C3PAO will ask about.
 
-Pulling the boundary in does not make those systems secure. It makes them *out of scope*, which is a different and much cheaper claim to defend — provided the boundary is real.
+Pulling the boundary in does not make those systems secure. It makes them *out of scope*, which is a different and much cheaper claim to defend - provided the boundary is real.
 
 ## The condition that makes it real
 
 That proviso carries the entire argument, so it deserves to be stated plainly: an enclave is only a boundary if CUI cannot leave it during normal work.
 
-Not "should not." Cannot. The controls that make this true are the unglamorous ones — restricted clipboard and drive redirection, blocked removable media, egress controls, identity that does not span the boundary. If any of those is missing, you have not built an enclave. You have built a place where CUI is *supposed* to live, and users will discover the gap within a week because doing their job requires it.
+Not "should not." Cannot. The controls that make this true are the unglamorous ones - restricted clipboard and drive redirection, blocked removable media, egress controls, identity that does not span the boundary. If any of those is missing, you have not built an enclave. You have built a place where CUI is *supposed* to live, and users will discover the gap within a week because doing their job requires it.
 
-This is the failure mode that gives enclaves a bad reputation. An enclave too painful to work in does not fail closed; it fails by being circumvented, and circumvention puts CUI back on the network you scoped out — where you now have no controls at all, because you scoped them out too. That outcome is strictly worse than never having built the enclave.
+This is the failure mode that gives enclaves a bad reputation. An enclave too painful to work in does not fail closed; it fails by being circumvented, and circumvention puts CUI back on the network you scoped out - where you now have no controls at all, because you scoped them out too. That outcome is strictly worse than never having built the enclave.
 
-So the real question is not "enclave or network." It is whether you can build an enclave that people will actually work inside. If the answer is no — because the workflow genuinely requires tools that cannot live there — then the whole-network path is the honest one, and pretending otherwise buys you a boundary that exists only on paper.
+So the real question is not "enclave or network." It is whether you can build an enclave that people will actually work inside. If the answer is no - because the workflow genuinely requires tools that cannot live there - then the whole-network path is the honest one, and pretending otherwise buys you a boundary that exists only on paper.
 
 ## Deciding
 
@@ -58,6 +58,6 @@ What fraction of your staff touches CUI? Under a third, the enclave almost alway
 
 How old is your estate? Every system predating your compliance obligation is a remediation bill you avoid by scoping it out.
 
-Can the CUI work be done in a controlled environment? Not "would people prefer to" — can it. If a critical tool cannot run inside the enclave, that is a design constraint to solve before you commit, not a surprise to discover after.
+Can the CUI work be done in a controlled environment? Not "would people prefer to" - can it. If a critical tool cannot run inside the enclave, that is a design constraint to solve before you commit, not a surprise to discover after.
 
-MacTech builds bounded CUI enclaves as a product rather than a bespoke project — the architecture is described at [CUI enclave architecture](/cui-enclave-architecture), and [a readiness scan](/readiness) will tell you which side of this decision your environment is actually on. ◆
+MacTech builds bounded CUI enclaves as a product rather than a bespoke project - the architecture is described at [CUI enclave architecture](/cui-enclave-architecture), and [a readiness scan](/readiness) will tell you which side of this decision your environment is actually on. ◆

@@ -94,6 +94,11 @@ contractor or program-office engineer who has real work to do:
 - Link to site pages where natural: `/readiness`, `/contact`,
   `/cmmc-level-2`, `/cui-enclave-architecture`, `/maczine/<other-slug>`.
   Internal links are part of the SEO job.
+- Never an em dash (—). Where you'd reach for one - a parenthetical, a
+  pivot, an appositive - use a plain hyphen with a space on each side
+  instead, the way this sentence just did. Lint fails the build on any
+  em dash in the body or frontmatter (title, description, kicker,
+  stats, asides) - it is not a style suggestion.
 
 ## Structure: never the same shape twice
 
@@ -187,6 +192,7 @@ before every PR; a red lint means the article will not publish.
   first and answer duplicates on the issue instead of in a PR.
 - Never reuse the previous article's structure. Different head count,
   different shape, no stock closing section.
+- Never an em dash (—) - a plain hyphen (-), always. Lint enforces this.
 - Branch prefix `maczine/` (e.g. `maczine/cmmc-scoping-pitfalls`).
 - One article per PR. Don't edit other articles, scripts/, template/,
   .github/, or any `field-copy.*` (CI owns those).
