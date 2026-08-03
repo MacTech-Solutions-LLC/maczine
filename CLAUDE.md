@@ -24,10 +24,18 @@ article. You NEVER merge your own PR — a human pulls that trigger.
    kebab-case, keyword-rich, date-free (`cmmc-scoping-pitfalls`, not
    `2026-08-post`). Never rename an existing article's directory.
 2. Frontmatter — required: `title` (≤70 chars ideal), `description`
-   (≤160 chars, written as the SERP meta description), `publishedAt`
-   (YYYY-MM-DD, today). Optional: `author`, `tags` (lowercase list),
-   `kicker`, `stats`, `asides`, `issue`, `draft`. See README.md for exact
-   shapes.
+   (≤160 chars, written as the SERP meta description), `publishedAt`.
+   Optional: `author`, `tags` (lowercase list), `kicker`, `stats`,
+   `asides`, `issue`, `draft`. See README.md for exact shapes.
+
+   `publishedAt` is the release schedule, not a label: the site holds an
+   article back until that instant passes. MacZine runs one issue per
+   weekday at **8:00 AM Eastern**, so write the full timestamp with the
+   offset — `2026-08-04T08:00:00-04:00` on EDT (March-November),
+   `-05:00` on EST. A bare `YYYY-MM-DD` is midnight **UTC**, which
+   publishes the piece at 7-8PM Eastern the evening *before* its date;
+   never use one. Unless the commission names a date, take the next
+   free weekday after the last scheduled article.
 3. **The catalog** (see README "The catalog"): MacZine runs ONE series —
    every article that publishes is a numbered Issue. Set `issue:` to the
    next free number: the highest taken across every existing article's

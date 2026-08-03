@@ -19,9 +19,9 @@ const SITE = process.env.MACZINE_SITE_URL || 'https://www.mactechsolutionsllc.co
 const ARTICLES = join(process.cwd(), 'articles')
 
 // Compare dates only. `publishedAt` carries a specific release time
-// (8:00 AM Pacific), but this script only needs to know whether that
+// (8:00 AM Eastern), but this script only needs to know whether that
 // day has arrived — the workflow's cron already runs late enough in
-// the day (16:20 UTC) that anything dated today has cleared its gate.
+// the day (13:20 UTC) that anything dated today has cleared its gate.
 const today = new Date()
 today.setUTCHours(23, 59, 59, 999)
 

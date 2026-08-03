@@ -7,12 +7,12 @@ name: Verify scheduled articles are live
 # article that silently never appears is the risk of scheduling ahead.
 on:
   schedule:
-    # 16:20 UTC daily. The gate is now a real clock time — 8:00 AM
-    # Pacific, which is 15:00 UTC on PDT or 16:00 UTC on PST — not
-    # midnight UTC, so this has to run after the later of the two
-    # (16:00 UTC) with margin, or it flags that day's release as
-    # missing hours before it's actually due to go live.
-    - cron: '20 16 * * *'
+    # 13:20 UTC daily. The gate is a real clock time — 8:00 AM Eastern,
+    # which is 12:00 UTC on EDT or 13:00 UTC on EST — not midnight UTC,
+    # so this has to run after the later of the two (13:00 UTC) with
+    # margin, or it flags that day's release as missing hours before
+    # it's actually due to go live.
+    - cron: '20 13 * * *'
   workflow_dispatch:
   # Also on push, so merging the batch confirms it landed rather than
   # leaving you to find out tomorrow.
