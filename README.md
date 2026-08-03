@@ -12,9 +12,39 @@ Publishing never requires a website deploy.
 
 1. Branch, add `articles/<slug>/index.md`
 2. Open a PR — CI lints the frontmatter
-3. Merge to `main` — the article is live on the site within seconds
+3. Merge to `main` — the article syncs to the site within seconds and
+   goes live the moment its `publishedAt` passes
 
 To unpublish, delete the article directory (or set `draft: true`) and merge.
+
+### Cadence: one issue a weekday, 8:00 AM Eastern
+
+`publishedAt` **is** the schedule — the site filters every public read
+on it, so a merged article with a future timestamp sits in the database,
+invisible, until the moment arrives. No cron, no queue, nothing that can
+fail silently at 3am. That is what lets a week of issues merge in one
+batch and still land one per morning.
+
+Write it as a full timestamp with an explicit Eastern offset:
+
+```yaml
+publishedAt: 2026-08-04T08:00:00-04:00   # EDT, Mar-Nov
+publishedAt: 2026-11-17T08:00:00-05:00   # EST, Nov-Mar
+```
+
+Two traps:
+
+- **A bare `YYYY-MM-DD` is not 8AM.** YAML parses it as midnight **UTC**,
+  which is 7 or 8PM Eastern the *evening before* — the piece publishes
+  early, on the wrong calendar day, and lands in the wrong weekday slot
+  on the index strip. A few early articles predate this convention and
+  still carry bare dates; don't copy them.
+- **The offset is not decorative.** `-04:00` in January is 7:00 AM
+  Eastern, not 8:00. EDT (`-04:00`) runs from the second Sunday in
+  March to the first Sunday in November; EST (`-05:00`) covers the rest.
+
+Mon-Fri only. Weekend dates break the index's five-slot weekday strip,
+which falls back to a plain list when a week doesn't fit that shape.
 
 ## Article format
 
@@ -36,7 +66,7 @@ articles/
 ---
 title: The First 90 Days of a CMMC Level 2 Program   # required, ≤70 chars ideal
 description: What to actually do first — scoping, …  # required, ≤160 chars ideal (this is the meta description)
-publishedAt: 2026-07-26                               # required, YYYY-MM-DD
+publishedAt: 2026-07-27T08:00:00-04:00                # required; 8AM Eastern, see "Cadence"
 author: MacTech Solutions                             # optional, defaults to org
 tags:                                                 # optional, lowercase
   - cmmc
