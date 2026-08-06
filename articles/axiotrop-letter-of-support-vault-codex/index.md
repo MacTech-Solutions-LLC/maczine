@@ -9,7 +9,6 @@ tags:
   - cmmc
 kicker: From the field · RMF / ATO
 issue: 18
-draft: true
 asides:
   - title: What Axiotrop is, and isn't, saying
     body: Axiotrop confirmed the documentation and evidence problem is "real and relevant" and supports further research into a human-attested, source-traceable approach. It did not assess, name, or endorse Vault-Codex, and the letter is explicit that it creates no procurement commitment, certification decision, or formal partnership.
