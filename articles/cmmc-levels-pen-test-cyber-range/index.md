@@ -2,12 +2,12 @@
 title: The CMMC Levels Are Not a Ladder, and Only One Requires a Pen Test
 description: Level 1, 2, and 3 test different things on different clocks. Only one requires a penetration test - here is which, and why the other two do not.
 publishedAt: 2026-08-01
+issue: 19
 tags:
   - cmmc
   - nist-800-171
   - penetration-testing
   - defense-contracting
-draft: true
 kicker: Explainer · CMMC Levels
 stats:
   - n: "110"
