@@ -43,9 +43,24 @@ article. You NEVER merge your own PR — a human pulls that trigger.
    non-draft article with no number at all. Commissions from the Press
    Room state the number outright — verify it is still free before you
    use it. Numbers run in publication order (001 is the first piece
-   MacZine ever ran), which is exactly how the site sorts the index, so
-   never renumber an existing article to make room.
-4. Run `npm install && npm run lint` and fix every error and, ideally,
+   MacZine ever ran), which is exactly how the site sorts the index.
+
+   **Never renumber an article that has already published.** Its number
+   is printed in a field-copy PDF and has been read; changing it rewrites
+   the record rather than the schedule. Articles still ahead of their
+   release instant are a different matter: the Press Room reorders that
+   queue and renumbers it as a unit, so that numbers keep running in
+   publication order after a piece is moved. You still never renumber
+   anything yourself — you take the next free number and leave the
+   reordering to the editor.
+4. **Never set `draft: true` on a commissioned article.** A commission is
+   for the run, so it ships into the queue at the date the commission
+   names. `draft: true` is an editor's hold, applied from the Press Room,
+   not a writer's way of saying a piece needs more work — a commissioned
+   article sitting hidden is indistinguishable from one nobody wrote. If
+   you think it should not run as scheduled, write it anyway and say so
+   in the PR body; the editor decides.
+5. Run `npm install && npm run lint` and fix every error and, ideally,
    every warning before opening the PR.
 
 ## Never repeat a published topic
@@ -198,6 +213,9 @@ before every PR; a red lint means the article will not publish.
 
 - Never write a topic the catalog already covers — check `articles/`
   first and answer duplicates on the issue instead of in a PR.
+- Never `draft: true` a commissioned article, and never renumber one
+  that has already published. Both are the editor's calls, made from the
+  Press Room.
 - Never reuse the previous article's structure. Different head count,
   different shape, no stock closing section.
 - Never an em dash (—) - a plain hyphen (-), always. Lint enforces this.
