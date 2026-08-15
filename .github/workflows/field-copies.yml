@@ -17,6 +17,23 @@ on:
 permissions:
   contents: write
 
+# Merging a batch (a week of issues, or ten at once) fires one run per
+# merge, and every run ends by committing PDFs to main. Left unserialized
+# they race: the first to push wins and the rest die on a rejected
+# non-fast-forward. That is only survivable because the job renders --all,
+# so whichever run finishes last happens to carry every article - if the
+# LAST one is the one that loses the race, field copies go missing on main
+# with nothing but a red check to say so.
+#
+# Serializing on the branch fixes it properly. cancel-in-progress drops
+# runs that a newer push has already superseded, because --all makes each
+# run a complete replacement for every earlier one rather than an
+# increment on top of it. Eleven merges become one render instead of
+# eleven, which also keeps this off the Actions minute budget.
+concurrency:
+  group: field-copies-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   render:
     runs-on: ubuntu-latest
@@ -32,9 +49,31 @@ jobs:
           git add articles/*/field-copy.pdf
           if git diff --cached --quiet; then
             echo "field copies unchanged"
-          else
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git commit -m "chore: render field copies"
-            git push
+            exit 0
           fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: render field copies"
+
+          # The concurrency group above keeps our own runs off each other,
+          # but a human merge can still land between our checkout and our
+          # push. Rebase onto whatever arrived and try again rather than
+          # failing the run. On a PDF conflict take -X theirs: in a rebase
+          # "theirs" is the commit being replayed, i.e. the copies this run
+          # just rendered, while files added upstream survive untouched.
+          for attempt in 1 2 3 4 5; do
+            if git push origin HEAD:main; then
+              echo "field copies pushed on attempt ${attempt}"
+              exit 0
+            fi
+            echo "push rejected; rebasing onto origin/main (attempt ${attempt})"
+            git fetch --quiet origin main
+            if ! git rebase -X theirs origin/main; then
+              git rebase --abort || true
+              echo "::error::field copies could not be rebased onto origin/main"
+              exit 1
+            fi
+            sleep $(( attempt * 5 ))
+          done
+          echo "::error::field copies still unpushed after 5 attempts"
+          exit 1
