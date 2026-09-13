@@ -3,7 +3,7 @@ title: "NIST 800-171 Rev 3 vs Rev 2: It Depends Who Signed the Contract"
 description: "NIST 800-171 Rev 3 vs Rev 2: DoD still binds and scores Rev 2 while civilian CUI heads to Rev 3. What changed, the ID trap, and how to map once."
 publishedAt: 2026-09-16T08:00:00-04:00
 author: Patrick Caruso
-issue: 35
+issue: 36
 kicker: Q&A · NIST 800-171
 tags:
   - nist-800-171

@@ -3,7 +3,7 @@ title: "Subcontractor Cybersecurity: Your Sub's SPRS Score Is a Claim"
 description: "Primes cannot see a sub's score in SPRS. Subcontractor cybersecurity requirements get verified with evidence - here is what to ask for."
 publishedAt: 2026-09-30T08:00:00-04:00
 author: Patrick Caruso
-issue: 45
+issue: 46
 kicker: Case in Point · Supply Chain
 tags:
   - supply-chain

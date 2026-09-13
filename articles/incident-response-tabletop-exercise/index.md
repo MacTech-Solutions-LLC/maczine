@@ -3,7 +3,7 @@ title: An Incident Response Tabletop Exercise That Satisfies 3.6.3
 description: An incident response tabletop exercise counts for NIST 800-171 3.6.3 only if it leaves evidence. How to seat, script, and document one an assessor accepts.
 publishedAt: 2026-09-21T08:00:00-04:00
 author: Patrick Caruso
-issue: 38
+issue: 39
 kicker: Field Guide · Incident Response
 tags:
   - incident-response

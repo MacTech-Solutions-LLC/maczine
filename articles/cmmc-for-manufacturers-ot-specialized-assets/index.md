@@ -1,9 +1,9 @@
 ---
 title: "CMMC for Manufacturers: Where the CNC Machine Sits in Scope"
 description: CMMC for manufacturers turns on one scoping rule. A tour from the CAD station to the loading dock, classifying CNC machines, OT, and test equipment.
-publishedAt: 2026-10-05T08:00:00-04:00
+publishedAt: 2026-09-14T08:00:00-04:00
 author: Patrick Caruso
-issue: 48
+issue: 34
 kicker: Field Guide · Manufacturing Scope
 tags:
   - cmmc

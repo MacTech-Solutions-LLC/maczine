@@ -3,7 +3,7 @@ title: How to Send CUI by Email Without Failing 3.13.8
 description: "How to send CUI via email: why default TLS fails 3.13.8, when S/MIME or Purview encryption holds up, and when DoD SAFE is the better road."
 publishedAt: 2026-09-24T08:00:00-04:00
 author: Patrick Caruso
-issue: 41
+issue: 42
 kicker: Field Guide · CUI Transmission
 tags:
   - cui

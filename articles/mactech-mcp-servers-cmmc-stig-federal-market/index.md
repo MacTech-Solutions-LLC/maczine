@@ -3,7 +3,7 @@ title: "CMMC MCP Server: Ask Your AI for an SPRS Score or a STIG Rule"
 description: A CMMC MCP server makes your AI look up SPRS weights, STIG rules, and award data instead of guessing. Three no-account MacTech servers, tested live.
 publishedAt: 2026-10-02T08:00:00-04:00
 author: Patrick Caruso
-issue: 47
+issue: 48
 kicker: Platform Spotlight · AI & Compliance
 tags:
   - cmmc

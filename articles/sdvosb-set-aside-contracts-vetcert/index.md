@@ -3,7 +3,7 @@ title: "SDVOSB Set-Aside Contracts After VetCert: Where the Money Goes"
 description: SDVOSB set-aside contracts now require SBA VetCert, and the FAR overhaul made them a contracting officer's choice. What FY2025 data shows for cyber.
 publishedAt: 2026-09-18T08:00:00-04:00
 author: Matthew Davis
-issue: 37
+issue: 38
 kicker: Explainer · Federal Capture
 tags:
   - sdvosb

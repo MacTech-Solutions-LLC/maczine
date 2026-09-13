@@ -3,7 +3,7 @@ title: "CMMC Consultant, RPO, MSP, or vCISO: Who Owns Your Program?"
 description: "Hiring a CMMC consultant? An RPO, an MSP, and a vCISO do three different jobs, and none of them can sign for you. What to ask each before you buy."
 publishedAt: 2026-09-29T08:00:00-04:00
 author: Matthew Davis
-issue: 44
+issue: 45
 kicker: Column · Buying Outside Help
 tags:
   - cmmc

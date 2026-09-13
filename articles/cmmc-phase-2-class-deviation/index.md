@@ -3,7 +3,7 @@ title: "CMMC Class Deviation: The Phase 2 Pause Is Now in the Rulebook"
 description: "The CMMC class deviation moved the Phase 2 pause from a policy memo into DFARS. A dated timeline of what each step changed, and what stays in force."
 publishedAt: 2026-09-15T08:00:00-04:00
 author: Patrick Caruso
-issue: 34
+issue: 35
 kicker: Follow-up · CMMC Policy
 tags:
   - cmmc

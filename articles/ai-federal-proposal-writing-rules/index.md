@@ -3,7 +3,7 @@ title: "AI Proposal Writing for Government Contracts: What's Allowed"
 description: AI proposal writing for government contracts is generally allowed. Certifying what the model invented is not. Three scenarios, three controls.
 publishedAt: 2026-10-01T08:00:00-04:00
 author: Matthew Davis
-issue: 46
+issue: 47
 kicker: Explainer · AI and Proposals
 tags:
   - ai

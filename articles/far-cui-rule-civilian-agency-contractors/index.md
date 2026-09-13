@@ -3,7 +3,7 @@ title: The FAR CUI Rule Is Coming for Contractors Who Never Saw DFARS
 description: The proposed FAR CUI rule would put NIST 800-171 Rev 3, a 72-hour incident clock, and a new standard form into civilian agency contracts.
 publishedAt: 2026-09-17T08:00:00-04:00
 author: Matthew Davis
-issue: 36
+issue: 37
 kicker: Case in Point · Civilian CUI
 tags:
   - far-cui-rule

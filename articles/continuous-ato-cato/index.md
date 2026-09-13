@@ -3,7 +3,7 @@ title: Continuous ATO Asks for What a Three-Year ATO Never Did
 description: A continuous ATO (cATO) is not an ATO that never expires. What DoD's cATO memo and evaluation criteria demand instead - telemetry, gates, SBOMs.
 publishedAt: 2026-09-28T08:00:00-04:00
 author: Patrick Caruso
-issue: 43
+issue: 44
 kicker: Explainer · Continuous ATO
 tags:
   - cato

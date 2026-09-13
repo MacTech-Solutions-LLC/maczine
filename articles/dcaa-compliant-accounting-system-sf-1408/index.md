@@ -3,7 +3,7 @@ title: "DCAA Compliant Accounting System: What SF 1408 Actually Tests"
 description: DCAA does not approve accounting systems. A pre-award survey tests yours against SF 1408. What a DCAA compliant accounting system must show.
 publishedAt: 2026-09-25T08:00:00-04:00
 author: Matthew Davis
-issue: 42
+issue: 43
 kicker: Checklist · Cost Accounting
 tags:
   - dcaa

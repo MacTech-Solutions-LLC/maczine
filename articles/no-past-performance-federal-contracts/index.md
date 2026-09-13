@@ -3,7 +3,7 @@ title: No Past Performance? How New Firms Win Government Contracts
 description: No past performance on government contracts earns a neutral rating, not a loss. The rules that let small firms count JV, subcontract, and team records.
 publishedAt: 2026-09-23T08:00:00-04:00
 author: Matthew Davis
-issue: 40
+issue: 41
 kicker: Analysis · Past Performance
 tags:
   - past-performance
