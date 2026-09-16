@@ -14,7 +14,7 @@ stats:
   - n: "5"
     label: points each 3.4.1 and 3.4.2 carries in the DoD Assessment Methodology - among the heaviest weights any single requirement gets
   - n: "2,029"
-    label: DISA STIG rules in MacTech's reference service, across RHEL 8, RHEL 9, Windows 11, Windows Server 2022, and Cisco IOS Router NDM
+    label: DISA STIG rules in MacTech's reference service, across 15 benchmarks covering RHEL, Ubuntu, Windows, Windows Server and Cisco IOS, NX-OS and ISE
   - n: "4"
     label: artifacts an assessor asks for to evidence a baseline - most programs walk in with one
 asides:
