@@ -1,6 +1,6 @@
 ---
-title: "STIG, CIS, or Your Own Build: What Counts as a Baseline"
-description: A DISA STIG, a CIS Benchmark, or your own build standard satisfies NIST 800-171 3.4.1 - if it's applied, evidenced, and watched for drift.
+title: "STIG vs CIS Benchmark: Which Baseline Counts as Evidence"
+description: "DISA STIGs and CIS Benchmarks compared: who publishes each, who is bound by which, how their severity ratings differ, and what an assessor accepts."
 publishedAt: 2026-08-27T08:00:00-04:00
 author: Maxine
 issue: 28
@@ -14,10 +14,12 @@ stats:
   - n: "5"
     label: points each 3.4.1 and 3.4.2 carries in the DoD Assessment Methodology - among the heaviest weights any single requirement gets
   - n: "2,029"
-    label: DISA STIG rules in MacTech's reference service, across RHEL 8, RHEL 9, Windows 11, Windows Server 2022, and Cisco IOS Router NDM
+    label: DISA STIG rules in MacTech's reference service, across 15 benchmarks covering RHEL, Ubuntu, Windows, Windows Server and Cisco IOS, NX-OS and ISE
   - n: "4"
     label: artifacts an assessor asks for to evidence a baseline - most programs walk in with one
 asides:
+  - title: CAT I, II and III
+    body: STIG findings carry a severity category. **CAT I** is a weakness that would directly and immediately result in a loss of confidentiality, availability or integrity. **CAT II** degrades protection and may lead to one. **CAT III** reduces defence in depth without creating an exposure on its own. Assessors read the category before they read the count, which is why a hundred open CAT IIIs alarms a program less than one open CAT I.
   - title: What a vendor default actually fails
     body: An unmodified factory image is not the absence of a baseline - it is someone else's baseline, tuned for compatibility across every customer that vendor has, not for a CUI boundary. 3.4.2 asks you to enforce settings you chose. A default you never touched fails that test even when it happens to be reasonably secure.
 ---
@@ -29,6 +31,12 @@ Ask a program manager how their servers are configured and the honest answer, mo
 Start with the question readers actually have, because it is simpler than the anxiety around it suggests: a DISA Security Technical Implementation Guide, a CIS Benchmark, or your own documented build standard all qualify. None of the three is mandated for a contractor's own network. STIGs bind systems operating under an Authorization to Operate through the Risk Management Framework; a contractor's internal boundary is scoped differently, and nothing in NIST SP 800-171 names DISA's catalog by number. What 3.4.1 and 3.4.2 require is that you pick one, document it per system type, and apply it - a RHEL 9 database server and a Windows 11 workstation each get their own defined configuration, not one aspirational paragraph covering both.
 
 An assessor will accept any of the three sources, and picking one is mostly a question of what you already run. A shop standardized on Red Hat and Windows Server gains real leverage from adopting DISA's STIGs outright, because the check and fix text already exists at the level of individual registry keys and configuration lines. CIS Benchmarks cover a wider vendor list and read a shade less prescriptive. A homegrown build standard is legitimate too, provided it specifies settings at the same granularity the other two do - "harden the OS" is not a setting, and neither is a screenshot of a checklist nobody re-ran since the box was imaged.
+
+## Where a STIG and a CIS Benchmark actually differ
+
+Since the two names get used interchangeably and are not interchangeable, it is worth being precise about what each one is. A STIG is published by the Defense Information Systems Agency, and it exists to harden systems the Department of War operates or authorizes. It is written as an order rather than a recommendation, its content descends to individual registry keys and configuration lines, and every finding carries a severity category from CAT I down to CAT III. A CIS Benchmark comes from the Center for Internet Security, a nonprofit, and is built by a consensus process across vendors and practitioners rather than issued by an authority. It covers a far wider range of platforms, cloud services and containers among them, and it ships in profile levels: Level 1 for settings that harden a system without disturbing how it is used, Level 2 for defence in depth on systems where some loss of functionality is an acceptable trade.
+
+The practical consequence is that a STIG is usually the stricter document and the CIS Benchmark the broader one, and that neither binds a defense contractor's internal network by name. The useful middle path is not widely known: CIS publishes STIG-aligned profiles for several of its benchmarks, which lets a shop already standardized on CIS content produce something an assessor familiar with DISA's vocabulary reads without translation. If you are running systems under an ATO as well, take the STIG and get one artifact for both programs. If your estate is mixed and includes platforms DISA never wrote a STIG for, start from CIS and document where you departed from it.
 
 ## What an assessor will not accept
 
