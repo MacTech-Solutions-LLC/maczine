@@ -23,7 +23,7 @@ nothing.
 ## Architecture
 
 ```
-MacZine RSS ──► GitHub Actions (Mon–Fri, 08:05 / 08:15 / 08:30 / 09:00 / 10:30 America/Los_Angeles)
+MacZine RSS ──► GitHub Actions (Mon to Fri, 08:05 / 08:15 / 08:30 / 09:00 / 10:30 America/Los_Angeles)
                     │
                     ▼
           parse feed, pick newest by pubDate
