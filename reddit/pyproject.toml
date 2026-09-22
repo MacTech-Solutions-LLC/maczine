@@ -1,0 +1,11 @@
+[project]
+name = "maczine-reddit"
+version = "1.0.0"
+description = "Posts each newly released MacZine issue to Reddit as a link post."
+requires-python = ">=3.12"
+dependencies = ["requests>=2.32,<3", "defusedxml>=0.7.1,<1"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-q"
