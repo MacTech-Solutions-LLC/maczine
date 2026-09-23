@@ -70,6 +70,24 @@ by then. To post earlier, change the cron times in
 
 ## Setup
 
+### The short version
+
+Steps 1 to 3 below are yours: they need a human at Reddit. Once the app is
+approved, everything after that is one command:
+
+```bash
+cd reddit && ./setup.sh
+```
+
+It asks for the client ID, secret, bot account and subreddit, gets the
+refresh token, sets every GitHub secret, runs a dry run, offers the first
+live post, and turns the schedule on. Nothing you type is echoed, and the
+refresh token goes straight into a GitHub secret without being displayed.
+It is safe to re-run, and every step asks first.
+
+Steps 4 to 8 spell out what the script does, for when you would rather do
+it by hand.
+
 ### 1. Reddit account and subreddit
 
 1. Create a dedicated Reddit account for the bot, for example `MacZineBot`.
