@@ -57,7 +57,17 @@ export const fetchFeed = async (
       reason = `feed returned HTTP ${response.status}`;
     } catch (error) {
       if (error instanceof FeedUnavailableError) throw error;
-      reason = `feed request failed (${error instanceof Error ? error.name : 'unknown'})`;
+      // Keep the real message: a blocked fetch domain and a network failure
+      // look identical without it.
+      const detail = error instanceof Error ? `${error.name}: ${error.message}` : String(error);
+      // Devvit refuses a domain that is not on the app's allow-list. That is a
+      // permission, not a blip: retrying it just burns the backoff.
+      if (detail.includes('is not allowed') || detail.includes('PERMISSION_DENIED')) {
+        throw new FeedUnavailableError(
+          `Devvit blocked the request to ${new URL(url).hostname}: the domain is not allow-listed for this app`
+        );
+      }
+      reason = `feed request failed (${detail.slice(0, 300)})`;
     }
     if (attempt === attempts) break;
     const delay = 2000 * 2 ** (attempt - 1);

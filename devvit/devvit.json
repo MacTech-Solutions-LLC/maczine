@@ -58,5 +58,8 @@
         "defaultValue": false
       }
     }
+  },
+  "dev": {
+    "subreddit": "maczine_dev2"
   }
 }

@@ -159,6 +159,19 @@ describe('fetchFeed', () => {
     assert.equal(calls, 1);
   });
 
+  it('does not retry a blocked fetch domain', async () => {
+    let calls = 0;
+    const fetcher = async (): Promise<Response> => {
+      calls++;
+      throw new Error('7 PERMISSION_DENIED: HTTP request to domain: example.com is not allowed');
+    };
+    await assert.rejects(
+      () => fetchFeed(fetcher, 'https://example.com/feed.xml', 3, noWait),
+      /not allow-listed/
+    );
+    assert.equal(calls, 1);
+  });
+
   it('retries a thrown network error', async () => {
     let calls = 0;
     const fetcher = async (): Promise<Response> => {

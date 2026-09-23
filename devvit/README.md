@@ -103,7 +103,7 @@ exponential backoff, then left until the next scheduled run.
 
 ```bash
 npm install
-npm run test:unit    # 53 tests, no network
+npm run test:unit    # 54 tests, no network
 npm run test:types
 npm run lint
 npm run build
