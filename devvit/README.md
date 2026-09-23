@@ -37,7 +37,7 @@ app makes one HTTP GET and reads the response.
 
 ## Fetch Domains
 
-The following domain is requested for this app:
+The following domains are requested for this app:
 
 - `www.mactechsolutionsllc.com` — the MacZine RSS feed
   (`https://www.mactechsolutionsllc.com/maczine/feed.xml`), read once per
@@ -45,6 +45,9 @@ The following domain is requested for this app:
   RSS 2.0 feed belonging to MacTech Solutions LLC, who operate this app. The
   request is a plain GET. No user data, no Reddit data and no request body is
   ever sent to this domain.
+- `mactechsolutionsllc.com` — the same feed on the apex host. The apex
+  301-redirects to `www`, so it is requested only so that a redirect cannot
+  leave the app unable to read the feed. Same request, same data: none sent.
 
 Terms: https://www.mactechsolutionsllc.com/terms
 

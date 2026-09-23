@@ -9,7 +9,8 @@
     "http": {
       "enable": true,
       "domains": [
-        "www.mactechsolutionsllc.com"
+        "www.mactechsolutionsllc.com",
+        "mactechsolutionsllc.com"
       ]
     },
     "redis": true,
