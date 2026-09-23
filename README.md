@@ -131,6 +131,13 @@ node scripts/build-article.mjs articles/<slug> --pdf   # one article
 node scripts/build-article.mjs --all --pdf             # everything
 ```
 
+## Reddit distribution
+
+Each weekday's issue is posted to MacTech's subreddit by the
+`Post MacZine to Reddit` workflow, which reads the public RSS feed, so
+nothing about publishing changes. Setup, secrets and troubleshooting are in
+[`reddit/README.md`](reddit/README.md).
+
 ## Linting locally
 
 ```

@@ -1,0 +1,96 @@
+name: Post MacZine to Reddit
+
+# Each weekday's MacZine issue goes live at 8:00 AM Eastern (5:00 AM
+# Pacific). These runs post it to Reddit mid-morning Pacific. There are
+# several because GitHub's scheduler can start a job minutes to hours late
+# at peak; every run after the first finds the post already on Reddit and
+# exits green. The 10:30 run is the backstop for a badly delayed morning.
+#
+# Nothing here keeps state: Reddit itself is the record of what was posted.
+# See reddit/README.md.
+on:
+  schedule:
+    - cron: '5 8 * * 1-5'
+      timezone: 'America/Los_Angeles'
+    - cron: '15 8 * * 1-5'
+      timezone: 'America/Los_Angeles'
+    - cron: '30 8 * * 1-5'
+      timezone: 'America/Los_Angeles'
+    - cron: '0 9 * * 1-5'
+      timezone: 'America/Los_Angeles'
+    - cron: '30 10 * * 1-5'
+      timezone: 'America/Los_Angeles'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run: find the article and check Reddit, but do not post'
+        type: boolean
+        default: true
+  pull_request:
+    paths:
+      - 'reddit/**'
+      - '.github/workflows/post-to-reddit.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'reddit/**'
+      - '.github/workflows/post-to-reddit.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    if: github.event_name == 'pull_request' || github.event_name == 'push'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: reddit
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: reddit/requirements*.txt
+      - run: pip install -r requirements-dev.txt
+      - run: python -m pytest
+
+  post:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    # Never two posters at once: a second run waits, then sees the first
+    # run's post on Reddit and does nothing.
+    concurrency:
+      group: maczine-reddit-post
+      cancel-in-progress: false
+    defaults:
+      run:
+        working-directory: reddit
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: reddit/requirements.txt
+      - run: pip install -r requirements.txt
+      - name: Post newest issue
+        env:
+          PYTHONPATH: src
+          # Manual runs: the dry_run input (default true).
+          # Scheduled runs: the REDDIT_SCHEDULED_DRY_RUN repository variable,
+          # Unset means DRY RUN: the schedule posts nothing until someone sets
+          # it to false after Reddit has approved the app. format() matters:
+          # a bare boolean false input would fall through the ||.
+          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && format('{0}', inputs.dry_run) || vars.REDDIT_SCHEDULED_DRY_RUN || 'true' }}
+          MAX_ARTICLE_AGE_HOURS: ${{ vars.MAX_ARTICLE_AGE_HOURS }}
+          REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
+          REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
+          REDDIT_REFRESH_TOKEN: ${{ secrets.REDDIT_REFRESH_TOKEN }}
+          REDDIT_USERNAME: ${{ secrets.REDDIT_USERNAME }}
+          REDDIT_SUBREDDIT: ${{ secrets.REDDIT_SUBREDDIT }}
+          REDDIT_FLAIR_ID: ${{ secrets.REDDIT_FLAIR_ID }}
+        run: python -m maczine_reddit
