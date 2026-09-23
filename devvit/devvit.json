@@ -1,0 +1,66 @@
+{
+  "$schema": "https://developers.reddit.com/schema/config-file.v1.json",
+  "name": "maczine",
+  "server": {
+    "dir": "dist/server",
+    "entry": "index.cjs"
+  },
+  "permissions": {
+    "http": {
+      "enable": true,
+      "domains": [
+        "www.mactechsolutionsllc.com",
+        "mactechsolutionsllc.com"
+      ]
+    },
+    "redis": true,
+    "reddit": true
+  },
+  "scheduler": {
+    "tasks": {
+      "post-latest-issue": {
+        "endpoint": "/internal/scheduler/post-latest-issue",
+        "cron": "5,35 15-17 * * 1-5"
+      }
+    }
+  },
+  "menu": {
+    "items": [
+      {
+        "label": "Post the latest MacZine issue",
+        "description": "Check the MacZine feed and post today's issue if it is not already here",
+        "location": "subreddit",
+        "forUserType": "moderator",
+        "endpoint": "/internal/menu/post-latest-issue"
+      }
+    ]
+  },
+  "scripts": {
+    "dev": "vite build --watch",
+    "build": "vite build"
+  },
+  "settings": {
+    "subreddit": {
+      "feedUrl": {
+        "type": "string",
+        "label": "MacZine RSS feed URL",
+        "helpText": "The feed the app reads each weekday morning. Must be https.",
+        "defaultValue": "https://www.mactechsolutionsllc.com/maczine/feed.xml"
+      },
+      "flairId": {
+        "type": "string",
+        "label": "Post flair template ID (optional)",
+        "helpText": "Leave blank for no flair."
+      },
+      "dryRun": {
+        "type": "boolean",
+        "label": "Dry run",
+        "helpText": "When on, the app checks the feed and logs what it would post, but posts nothing.",
+        "defaultValue": false
+      }
+    }
+  },
+  "dev": {
+    "subreddit": "maczine_dev2"
+  }
+}
