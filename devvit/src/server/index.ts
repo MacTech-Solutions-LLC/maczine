@@ -6,11 +6,15 @@ import { Hono } from 'hono';
 
 import { FEED_URL } from './maczine/feed.ts';
 import { isSuccess, liveFetchText, runPoster, type Outcome, type PosterDeps } from './maczine/poster.ts';
+import { runWeekly, type WeeklyDeps, type WeeklyOutcome } from './maczine/weekly.ts';
 
 const RECENT_POSTS_TO_SCAN = 100;
 
+type Config = { feedUrl: string; flairId: string; dryRun: boolean; weeklyThread: boolean };
+
 /** Moderator settings, each falling back to a safe default. */
-const config = async (): Promise<{ feedUrl: string; flairId: string; dryRun: boolean }> => {
+const config = async (): Promise<Config> => {
+  const defaults: Config = { feedUrl: FEED_URL, flairId: '', dryRun: false, weeklyThread: true };
   try {
     const all = await settings.getAll<Record<string, unknown>>();
     const feedUrl = typeof all['feedUrl'] === 'string' ? all['feedUrl'].trim() : '';
@@ -19,14 +23,58 @@ const config = async (): Promise<{ feedUrl: string; flairId: string; dryRun: boo
       feedUrl: feedUrl.startsWith('https://') ? feedUrl : FEED_URL,
       flairId,
       dryRun: all['dryRun'] === true,
+      weeklyThread: all['weeklyThread'] !== false,
     };
   } catch (error) {
     console.warn(`could not read settings, using defaults: ${error instanceof Error ? error.message : error}`);
-    return { feedUrl: FEED_URL, flairId: '', dryRun: false };
+    return defaults;
   }
 };
 
-const deps = (options: { feedUrl: string; flairId: string; dryRun: boolean }): PosterDeps => {
+const store = {
+  remember: async (key: string, value: string, ttlSeconds: number): Promise<void> => {
+    await redis.set(key, value);
+    await redis.expire(key, ttlSeconds);
+  },
+  recall: (key: string): Promise<string | undefined> => redis.get(key),
+};
+
+const weeklyDeps = (cfg: Config): WeeklyDeps => {
+  const subredditName = context.subredditName;
+  if (!subredditName) throw new Error('no subreddit in context');
+  return {
+    subredditName,
+    dryRun: cfg.dryRun,
+    submitText: async (opts) => {
+      const post = await reddit.submitPost(opts);
+      return { id: post.id, permalink: post.permalink };
+    },
+    sticky: async (postId) => {
+      const post = await reddit.getPostById(postId as `t3_${string}`);
+      await post.sticky();
+    },
+    unsticky: async (postId) => {
+      const post = await reddit.getPostById(postId as `t3_${string}`);
+      await post.unsticky();
+    },
+    ...store,
+  };
+};
+
+const runWeeklyThread = async (trigger: string): Promise<WeeklyOutcome> => {
+  console.log(`MacZine weekly thread: ${trigger} at ${new Date().toISOString()}`);
+  const cfg = await config();
+  if (!cfg.weeklyThread) {
+    return { status: 'ALREADY_POSTED', message: 'the weekly thread is turned off in settings' };
+  }
+  const outcome = await runWeekly(weeklyDeps(cfg));
+  const line = `RESULT=WEEKLY_${outcome.status} ${outcome.message}${outcome.permalink ? ` ${outcome.permalink}` : ''}`;
+  if (outcome.status === 'REJECTED') console.error(line);
+  else console.log(line);
+  return outcome;
+};
+
+const deps = (options: Config): PosterDeps => {
   const subredditName = context.subredditName;
   if (!subredditName) throw new Error('no subreddit in context');
   return {
@@ -44,11 +92,7 @@ const deps = (options: { feedUrl: string; flairId: string; dryRun: boolean }): P
       const post = await reddit.submitPost(opts);
       return { id: post.id, url: post.url, permalink: post.permalink };
     },
-    remember: async (key, value, ttlSeconds) => {
-      await redis.set(key, value);
-      await redis.expire(key, ttlSeconds);
-    },
-    recall: (key) => redis.get(key),
+    ...store,
   };
 };
 
@@ -96,6 +140,29 @@ app.post('/internal/menu/post-latest-issue', async (c) => {
   } catch (error) {
     console.error(error);
     return c.json<UiResponse>({ showToast: 'MacZine poster failed; see the app logs' }, 400);
+  }
+});
+
+app.post('/internal/scheduler/weekly-thread', async (c) => {
+  await c.req.json<TaskRequest>().catch(() => undefined);
+  try {
+    await runWeeklyThread('scheduled run');
+  } catch (error) {
+    console.error(`RESULT=WEEKLY_UNEXPECTED ${error instanceof Error ? error.message : String(error)}`);
+  }
+  return c.json<TaskResponse>({ status: 'ok' }, 200);
+});
+
+app.post('/internal/menu/weekly-thread', async (c) => {
+  try {
+    const outcome = await runWeeklyThread('moderator menu action');
+    if (outcome.status === 'POSTED' && outcome.permalink) {
+      return c.json<UiResponse>({ navigateTo: outcome.permalink }, 200);
+    }
+    return c.json<UiResponse>({ showToast: outcome.message }, 200);
+  } catch (error) {
+    console.error(error);
+    return c.json<UiResponse>({ showToast: 'Weekly thread failed; see the app logs' }, 400);
   }
 });
 

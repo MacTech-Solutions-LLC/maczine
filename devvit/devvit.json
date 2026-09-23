@@ -21,6 +21,10 @@
       "post-latest-issue": {
         "endpoint": "/internal/scheduler/post-latest-issue",
         "cron": "5,35 15-17 * * 1-5"
+      },
+      "weekly-thread": {
+        "endpoint": "/internal/scheduler/weekly-thread",
+        "cron": "5 16 * * 1"
       }
     }
   },
@@ -32,6 +36,13 @@
         "location": "subreddit",
         "forUserType": "moderator",
         "endpoint": "/internal/menu/post-latest-issue"
+      },
+      {
+        "label": "Post the weekly discussion thread",
+        "description": "Post this week's open thread now, if it is not already up",
+        "location": "subreddit",
+        "forUserType": "moderator",
+        "endpoint": "/internal/menu/weekly-thread"
       }
     ]
   },
@@ -57,6 +68,12 @@
         "label": "Dry run",
         "helpText": "When on, the app checks the feed and logs what it would post, but posts nothing.",
         "defaultValue": false
+      },
+      "weeklyThread": {
+        "type": "boolean",
+        "label": "Post a weekly discussion thread",
+        "helpText": "Posts one open thread each Monday morning and pins it.",
+        "defaultValue": true
       }
     }
   },
