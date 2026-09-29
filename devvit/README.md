@@ -26,6 +26,15 @@ run may find nothing (a late publication) and because a missed run should still
 be recoverable. Only the first run of a morning posts. Every run after it finds
 the post and does nothing.
 
+## The weekly discussion thread
+
+A community that only receives link posts has nowhere for anyone to talk. Each
+Monday morning the app also posts one open discussion thread and pins it,
+unpinning the previous week's. It posts at most one thread per ISO week however
+often the task runs, and a failure to pin never causes a second thread. Turn it
+off with the **Post a weekly discussion thread** setting, or post one on demand
+from the subreddit menu.
+
 ## Why it needs fetch
 
 The article's title and URL exist only in the MacZine RSS feed. There is no way
@@ -62,6 +71,7 @@ Privacy Policy: https://www.mactechsolutionsllc.com/privacy
 | --- | --- | --- |
 | MacZine RSS feed URL | the MacZine feed | The feed to read. Must be https, and its host must be an allow-listed domain. |
 | Post flair template ID | empty | Flair applied to the post. Blank means no flair. |
+| Post a weekly discussion thread | on | Posts one open thread each Monday and pins it. |
 | Dry run | off | When on, the app reads the feed and logs what it would post, without posting. Useful right after install. |
 
 3. Optionally use the subreddit menu item **Post the latest MacZine issue** to
@@ -98,6 +108,8 @@ Every run logs the time it fired and one `RESULT=` line:
 | `FEED_UNAVAILABLE` | The feed could not be read after retries. Nothing was posted. |
 | `FEED_MALFORMED` | The feed was not usable RSS, or its newest item linked off-site. |
 | `POST_REJECTED` | Reddit refused the post; the error follows. |
+| `WEEKLY_POSTED` | The week's discussion thread went up. |
+| `WEEKLY_ALREADY_POSTED` | This week's thread is already up, or the setting is off. |
 
 Transient failures (5xx, timeouts) are retried up to three times with
 exponential backoff, then left until the next scheduled run.
@@ -106,7 +118,7 @@ exponential backoff, then left until the next scheduled run.
 
 ```bash
 npm install
-npm run test:unit    # 54 tests, no network
+npm run test:unit    # 63 tests, no network
 npm run test:types
 npm run lint
 npm run build
