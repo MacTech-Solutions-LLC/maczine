@@ -65,6 +65,6 @@ The argument is narrower and, I think, harder to dismiss: the Department has con
 
 ## What we built, and what it is not
 
-MacTech is a defense contractor that handles CUI, so we built this for our own enclave first and publish its numbers, with dates, on our proof page. The engine recomputes the SPRS methodology score as evidence arrives from the enclave, keeps the history append-only behind signed checkpoints, lets a customer hand a prime a link the prime verifies in its own browser, and produces an assessment binder that checks itself offline. It does not certify anyone, it is not endorsed by the Department, and it does not change what you owe in SPRS.
+MacTech is a defense contractor that handles CUI, so we built this for our own enclave first and publish its numbers, with dates, on our proof page. The engine recomputes the SPRS methodology score as evidence arrives from the enclave, keeps the history append-only in a hash-chained ledger, and produces an assessment binder that checks itself offline. The last step, signing checkpoints of that ledger to a public mirror so a customer can hand a prime a link the prime verifies in its own browser, is built and switches on when our signing key is issued. It does not certify anyone, it is not endorsed by the Department, and it does not change what you owe in SPRS.
 
 The Department retired the snapshot for its own systems a year ago. The rest of us do not need to wait for a rule to do the same.
